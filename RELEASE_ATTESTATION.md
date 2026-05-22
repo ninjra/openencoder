@@ -34,6 +34,7 @@ These gates define the public v1.0.0 release boundary.
 | MS MARCO replay proof          | PASS     | docs/proofs/msmarco_replay_proof.json      |
 | Groth16 verification fixture   | PASS     | docs/proofs/groth16_verification_proof.json |
 | OpenEncoder.com package proof  | PASS     | docs/proofs/openencoder_origamold_masterfield_ape_package_receipt.json |
+| OpenEncoder.com provenance     | PASS     | .github/workflows/release-attestation.yml |
 | Linux launcher synthetic E2E   | PASS     | docs/proofs/openencoder_linux_ape_e2e_proof.json |
 | Windows frontend E2E           | PASS     | docs/proofs/openencoder_windows_frontend_e2e_proof.json |
 +--------------------------------+----------+--------------------------------------------+
@@ -59,6 +60,10 @@ OpenEncoder v1.0.0 does not claim:
 4. a complete statement of patent claim scope,
 5. secret-free answer recovery, or
 6. public disclosure of unpublished patent filing materials.
+
+## Binary Provenance
+
+The public repository includes `.github/workflows/release-attestation.yml`, which verifies the `bin/OpenEncoder.com` SHA-256 and emits a GitHub artifact attestation for the release binary. This is supply-chain provenance for the checked-in release artifact. It is not a substitute for Microsoft Authenticode, Apple notarization, or any private certificate-backed OS vendor signature. Those require maintainer-controlled signing credentials and must be added only when those credentials exist.
 
 ## Reproducibility Rule
 

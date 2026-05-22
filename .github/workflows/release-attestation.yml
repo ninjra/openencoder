@@ -1,0 +1,25 @@
+name: release-attestation
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  openencoder_binary_attestation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Verify release binary hash
+        run: |
+          echo "97802ae390bac1fc493b6b5ee2c2799f95b04f5354a8c09fc3ac93aa04a3e8a2  bin/OpenEncoder.com" | sha256sum -c -
+      - name: Attest OpenEncoder.com build provenance
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: bin/OpenEncoder.com

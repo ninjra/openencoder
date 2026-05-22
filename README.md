@@ -472,6 +472,8 @@ For the release burn-down and Patent Reference Edition boundary, see
 +-------------------+---------------------------------------------------+
 ```
 
+The release also includes a GitHub artifact attestation workflow for `bin/OpenEncoder.com`. That workflow verifies the binary SHA-256 before emitting provenance. OS vendor code-signing, such as Authenticode or Apple notarization, is not claimed unless maintainer-controlled signing credentials are added later.
+
 Details: `docs/OPENENCODER_APE.md`.
 
 ## Field-service integration checklist

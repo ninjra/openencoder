@@ -18,6 +18,7 @@ OpenEncoder is a private-field client kit. It deterministically encodes local te
 | Local ledger map-back exists  | Reference replay proof and smoke tests                       |
 | Groth16 verify path exists    | BN254 fixture and tamper rejection artifact                  |
 | OpenEncoder.com is packaged   | Launcher package receipt and E2E proof artifacts             |
+| Binary provenance exists      | GitHub artifact attestation workflow for OpenEncoder.com     |
 +-------------------------------+--------------------------------------------------------------+
 ```
 
@@ -33,6 +34,7 @@ OpenEncoder is a private-field client kit. It deterministically encodes local te
 | General-purpose SNARK system  | The repo has one BN254 Groth16 reference lane                |
 | Secret-free answer recovery   | Decode needs the local ledger and source material            |
 | Unpublished patent details    | Public citation waits for public records or approved wording |
+| OS vendor code-signing        | Authenticode/notarization require private signing credentials |
 +-------------------------------+--------------------------------------------------------------+
 ```
 
