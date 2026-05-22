@@ -1,0 +1,10 @@
+{
+  "answer_bytes": 1622,
+  "binary_sha256": "97802ae390bac1fc493b6b5ee2c2799f95b04f5354a8c09fc3ac93aa04a3e8a2",
+  "claim_boundary": "Portable Linux/WSL execution used the checked-in single-file launcher and recovered the answer excerpt through the local RAM ledger.",
+  "decode_status": "field_output_resolved_through_local_ram_ledger",
+  "decoded_answer_sha256": "193bdeb5d6f78ff1504b59733fdf4a85c2113f0332e4fb431fdb62c6556cd404",
+  "schema_version": "openencoder-linux-ape-e2e-proof-v1",
+  "self_check_passed": true,
+  "synthetic_e2e_passed": true
+}

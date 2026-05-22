@@ -1,0 +1,33 @@
+{
+  "answer_bytes": 1624,
+  "binary_sha256": "97802ae390bac1fc493b6b5ee2c2799f95b04f5354a8c09fc3ac93aa04a3e8a2",
+  "button_count": 7,
+  "button_texts": [
+    "Add Files...",
+    "Add Folder...",
+    "Load Question...",
+    "Create Package",
+    "Copy Package",
+    "Validate / Decode",
+    "Copy Answer"
+  ],
+  "checks": {
+    "answer_contains_source_text": true,
+    "answer_decoded_from_button": true,
+    "button_count_at_least_7": true,
+    "documents_visible_text_roundtrip": true,
+    "edit_count_at_least_5": true,
+    "launched_visible_openencoder_window": true,
+    "package_created_from_button": true,
+    "question_visible_text_roundtrip": true,
+    "response_visible_text_roundtrip": true,
+    "skipped_single_app_picker": true
+  },
+  "claim_boundary": "Windows-side PowerShell automation launched the actual OpenEncoder.com file, drove visible Win32 controls, clicked Create Package and Validate / Decode, and read the answer from the visible answer control.",
+  "edit_count": 5,
+  "package_bytes": 3125,
+  "proof_passed": true,
+  "request_id": "client-request:16b2fccafce8d58e989d214c1977fdd15fcbd73d",
+  "schema_version": "openencoder-windows-frontend-e2e-proof-v1",
+  "target_title": "OpenEncoder"
+}

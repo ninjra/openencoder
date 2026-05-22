@@ -1,0 +1,24 @@
+{
+  "api_decoder_split": {
+    "api_must_not": "synthesize private natural-language answers from opaque fields",
+    "api_role": "accept field objects and emit deterministic field results plus emission_quality",
+    "decoder_role": "use the private local ledger and source files to emit human-readable answers"
+  },
+  "human_readable_requirements": "OpenEncoder client field protocol requirements for third-party field services:\n\n1. The API receives only field objects, not private source text. The API emits field results plus emission_quality.\n2. The local decoder owns answer recovery because it has the private ledger and source files.\n3. Every corpus source and every query source MUST be written to the local append-only ledger before sending a request.\n4. Every ledger field_map event MUST include role, item_id, field_id, source_label, source_path, text_sha256, signal_sha256, width, context, and calc_hash.\n5. Every request_map event MUST bind the client_request_id to the sent request hash and all query field ids.\n6. Every field_group_map event MUST bind the corpus_hash to all member corpus item ids and member field ids.\n7. The field tensor MUST be a fixed-width list of signed int16-compatible integers. This reference kit uses width=64 by default.\n8. The reference client emits signed int16 typed-atom tensors in [-32767, 32767].\n9. Services MUST preserve recipe_id, dtype, shape, calc_hash, and returned references needed by the local decoder.\n10. calc_hash identifies the field encoding recipe. If a third-party field service changes tokenization, typed atoms, weighting, width, modality handling, or normalization, it MUST change calc_hash.\n11. corpus_hash and query_payload_hash MUST be opaque, content-bound ids that the local ledger can resolve.\n12. The API response is correct only for field math. Natural-language answers MUST be decoded locally from the ledger/source files.\n13. To answer image/audio/video queries, the third-party field service MUST store local answerable text such as captions, OCR, transcript, or operator-approved descriptions in the ledger. Raw binary bytes alone are not enough for a human answer.\n14. The decoder MUST show the original query, the final answer in the query language/dialect, supporting source labels/excerpts, replay status, and emission quality.\n15. The decoder MUST fail closed when the ledger hash chain is invalid, source files do not match recorded hashes, field ids do not resolve, encoding compatibility fails, or a query cannot be answered from local source text.",
+  "machine_readable_requirements": [
+    "append_only_local_ledger_required",
+    "field_map_events_bind_every_source",
+    "field_group_map_binds_corpus_hash_to_members",
+    "request_map_binds_client_request_id_to_payload_hash",
+    "fixed_width_signed_int16_field_tensor_required",
+    "typed_atom_recipe_metadata_required",
+    "compatibility_gated_decode_required",
+    "calc_hash_changes_when_encoding_recipe_changes",
+    "local_decoder_generates_natural_language_answer",
+    "non_text_modalities_require_local_answerable_text",
+    "decoder_fails_closed_on_unresolved_or_hash_mismatch",
+    "decoded_output_contains_monospace_table_and_txt_report"
+  ],
+  "purpose": "requirements for third-party field services that want OpenEncoder field API responses to decode locally into human answers",
+  "schema_version": "openencoder-client-field-protocol-requirements-v1"
+}

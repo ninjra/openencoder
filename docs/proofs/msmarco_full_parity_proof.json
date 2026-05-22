@@ -1,0 +1,191 @@
+{
+  "all_arrow_files_covered": true,
+  "artifact_payload_sha256": "947eadc4289124168179da040f2c61cc022c3a3bf673d1fd65947acc2d17e9fe",
+  "by_split": {
+    "test": {
+      "arrow_files": 1,
+      "canonical_hash_mismatches": 0,
+      "decoded_sources": 1110035,
+      "encoded_sources": 1110035,
+      "exceptions": 0,
+      "field_id_replay_mismatches": 0,
+      "field_receipt_replay_mismatches": 0,
+      "passages": 1008943,
+      "queries": 101092,
+      "raw_passage_slots": 1008943,
+      "rows": 101092,
+      "signal_replay_mismatches": 0,
+      "text_hash_mismatches": 0,
+      "typed_atom_hash_mismatches": 0
+    },
+    "train": {
+      "arrow_files": 7,
+      "canonical_hash_mismatches": 0,
+      "decoded_sources": 8878480,
+      "encoded_sources": 8878480,
+      "exceptions": 0,
+      "field_id_replay_mismatches": 0,
+      "field_receipt_replay_mismatches": 0,
+      "passages": 8069749,
+      "queries": 808731,
+      "raw_passage_slots": 8069749,
+      "rows": 808731,
+      "signal_replay_mismatches": 0,
+      "text_hash_mismatches": 0,
+      "typed_atom_hash_mismatches": 0
+    },
+    "validation": {
+      "arrow_files": 1,
+      "canonical_hash_mismatches": 0,
+      "decoded_sources": 1110078,
+      "encoded_sources": 1110078,
+      "exceptions": 0,
+      "field_id_replay_mismatches": 0,
+      "field_receipt_replay_mismatches": 0,
+      "passages": 1008985,
+      "queries": 101093,
+      "raw_passage_slots": 1008985,
+      "rows": 101093,
+      "signal_replay_mismatches": 0,
+      "text_hash_mismatches": 0,
+      "typed_atom_hash_mismatches": 0
+    }
+  },
+  "cache_locator": "local-msmarco-arrow-cache-fingerprint-sha256:bee4127db3c23137",
+  "claim_boundary": "OpenEncoder encode/decode parity over every text item in the local MS MARCO Arrow cache; no retrieval-ranking or service-quality claim. Groth16 is the only proof-verification path and is covered by docs/proofs/groth16_verification_proof.json.",
+  "dataset_config": "v2.1",
+  "dataset_name": "ms_marco",
+  "declared_row_count": 1010916,
+  "declared_rows_match_measured_rows": true,
+  "decode_chain_sha256": "a64c858d59b4b8239f6a45da5d695b3b2850261dc6d78922dc1a93d0267266cc",
+  "decode_model": "local-ledger-hash-mapback-equivalence-v1",
+  "decoded_source_count": 11098593,
+  "elapsed_seconds": 7129.019,
+  "encode_decode_accuracy_percent": 100.0,
+  "encoded_source_count": 11098593,
+  "encoder": {
+    "context": "msmarco-full-local-cache-parity",
+    "recipe": "openencoder-oezk1-signed-int16-typed-atom-v1",
+    "script": "client_field_encoder.py",
+    "width": 64
+  },
+  "fidelity_loss_count": 0,
+  "files": [
+    {
+      "encoded_sources": 1110035,
+      "file": "ms_marco-test.arrow",
+      "passages": 1008943,
+      "queries": 101092,
+      "raw_passage_slots": 1008943,
+      "rows": 101092,
+      "split": "test"
+    },
+    {
+      "encoded_sources": 1300915,
+      "file": "ms_marco-train-00000-of-00007.arrow",
+      "passages": 1182382,
+      "queries": 118533,
+      "raw_passage_slots": 1182382,
+      "rows": 118533,
+      "split": "train"
+    },
+    {
+      "encoded_sources": 1290209,
+      "file": "ms_marco-train-00001-of-00007.arrow",
+      "passages": 1172676,
+      "queries": 117533,
+      "raw_passage_slots": 1172676,
+      "rows": 117533,
+      "split": "train"
+    },
+    {
+      "encoded_sources": 1301459,
+      "file": "ms_marco-train-00002-of-00007.arrow",
+      "passages": 1182926,
+      "queries": 118533,
+      "raw_passage_slots": 1182926,
+      "rows": 118533,
+      "split": "train"
+    },
+    {
+      "encoded_sources": 1301346,
+      "file": "ms_marco-train-00003-of-00007.arrow",
+      "passages": 1182813,
+      "queries": 118533,
+      "raw_passage_slots": 1182813,
+      "rows": 118533,
+      "split": "train"
+    },
+    {
+      "encoded_sources": 1301251,
+      "file": "ms_marco-train-00004-of-00007.arrow",
+      "passages": 1182718,
+      "queries": 118533,
+      "raw_passage_slots": 1182718,
+      "rows": 118533,
+      "split": "train"
+    },
+    {
+      "encoded_sources": 1279313,
+      "file": "ms_marco-train-00005-of-00007.arrow",
+      "passages": 1162780,
+      "queries": 116533,
+      "raw_passage_slots": 1162780,
+      "rows": 116533,
+      "split": "train"
+    },
+    {
+      "encoded_sources": 1103987,
+      "file": "ms_marco-train-00006-of-00007.arrow",
+      "passages": 1003454,
+      "queries": 100533,
+      "raw_passage_slots": 1003454,
+      "rows": 100533,
+      "split": "train"
+    },
+    {
+      "encoded_sources": 1110078,
+      "file": "ms_marco-validation.arrow",
+      "passages": 1008985,
+      "queries": 101093,
+      "raw_passage_slots": 1008985,
+      "rows": 101093,
+      "split": "validation"
+    }
+  ],
+  "local_cache_limitations": {
+    "note": "Local search found HuggingFace ms_marco v1.1/v2.1 Arrow query-example caches only. This artifact covers every row and passage entry in the local v2.1 Arrow cache.",
+    "separate_138m_passage_collection_found": false
+  },
+  "measured_passage_count": 10087677,
+  "measured_query_count": 1010916,
+  "measured_raw_passage_slots": 10087677,
+  "measured_row_count": 1010916,
+  "mismatch_samples": [],
+  "proof_passed": true,
+  "receipt_chain_sha256": "613c945e05138473ca4d6ad8eca15033792e1055a9360edf9f9bf2bd19e9e46c",
+  "requested_splits": [
+    "test",
+    "train",
+    "validation"
+  ],
+  "schema_version": "openencoder-msmarco-full-local-cache-parity-proof-v1",
+  "signal_chain_sha256": "1368394b5b4e8fc66f891d4c8add014e792d55a8fc5517a713c72177fcd7010c",
+  "source_chain_sha256": "c493488583133dbaf89a56dd119cb5d237a74e36d1a8721e430f8713fde48bd2",
+  "totals": {
+    "arrow_files": 9,
+    "canonical_hash_mismatches": 0,
+    "decoded_sources": 11098593,
+    "encoded_sources": 11098593,
+    "exceptions": 0,
+    "field_id_replay_mismatches": 0,
+    "field_receipt_replay_mismatches": 0,
+    "passages": 10087677,
+    "queries": 1010916,
+    "raw_passage_slots": 10087677,
+    "rows": 1010916,
+    "signal_replay_mismatches": 0,
+    "text_hash_mismatches": 0,
+    "typed_atom_hash_mismatches": 0
+  }
+}

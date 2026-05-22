@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "ape_magic_matches": true,
+    "linux_payload_matches": true,
+    "macos_payload_matches": true,
+    "windows_payload_matches": true,
+    "zip_names_exact": true
+  },
+  "claim_boundary": "Reuses an existing Origamold APE envelope prefix and replaces only deterministic embedded payload ZIP entries.",
+  "envelope": "bin/OpenEncoder.com",
+  "envelope_sha256": "97802ae390bac1fc493b6b5ee2c2799f95b04f5354a8c09fc3ac93aa04a3e8a2",
+  "output": "bin/OpenEncoder.com",
+  "output_sha256": "97802ae390bac1fc493b6b5ee2c2799f95b04f5354a8c09fc3ac93aa04a3e8a2",
+  "payloads": {
+    "Origamold.exe": {
+      "path": "external:Origamold.exe",
+      "sha256": "b1c222a3e763f759f42e8e821476fcd8dbb3094c629e80e74a1732a25adce6ab"
+    },
+    "OrigamoldTui-linux-x86_64": {
+      "path": "external:OrigamoldTui-linux-x86_64",
+      "sha256": "34a5ae88bf9eaec435d6cee2961145219864fd20111802ad48e755efa6d495c6"
+    },
+    "OrigamoldTui-macos-x86_64": {
+      "path": "external:OrigamoldTui-macos-x86_64",
+      "sha256": "b7df45e6fa98a33e1f7e9771b300d7b2faf119aba1f3e61cabd529419ee99e2c"
+    }
+  },
+  "prefix_byte_count": 690426,
+  "proof_passed": true,
+  "schema_version": "openencoder-origamold-masterfield-ape-package-v1",
+  "zip_hashes": {
+    "Origamold.exe": "b1c222a3e763f759f42e8e821476fcd8dbb3094c629e80e74a1732a25adce6ab",
+    "OrigamoldTui-linux-x86_64": "34a5ae88bf9eaec435d6cee2961145219864fd20111802ad48e755efa6d495c6",
+    "OrigamoldTui-macos-x86_64": "b7df45e6fa98a33e1f7e9771b300d7b2faf119aba1f3e61cabd529419ee99e2c"
+  },
+  "zip_names": [
+    "Origamold.exe",
+    "OrigamoldTui-linux-x86_64",
+    "OrigamoldTui-macos-x86_64"
+  ],
+  "zip_offset": 690426
+}

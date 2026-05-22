@@ -1,0 +1,67 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  python:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.repository_visibility == 'public' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python dependencies
+        run: python3 -m pip install . pytest
+      - name: Compile Python surfaces
+        run: >-
+          python3 -m py_compile
+          client_field_encoder.py
+          openencoder_groth16.py
+          scripts/prove_reference_replay.py
+          scripts/prove_msmarco_replay.py
+          scripts/prove_msmarco_full_parity.py
+          scripts/package_origamold_masterfield_ape.py
+          scripts/release_privacy_scan.py
+          tests/test_client_field_encoder_smoke.py
+      - name: Validate requirements JSON
+        run: |
+          python3 client_field_encoder.py requirements > /tmp/openencoder_requirements.json
+          python3 -m json.tool /tmp/openencoder_requirements.json >/dev/null
+      - name: Run release privacy scan
+        run: python3 scripts/release_privacy_scan.py
+      - name: Run focused tests
+        run: python3 -m pytest tests/test_client_field_encoder_smoke.py -q --tb=short
+
+  snark:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.repository_visibility == 'public' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Groth16 dependencies
+        run: python3 -m pip install .
+      - name: Verify Groth16 positive and tamper fixture
+        run: python3 client_field_encoder.py verify --proof docs/proofs/groth16_verification_proof.json
+
+  openencoder_ape:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.repository_visibility == 'public' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: OpenEncoder.com self-check
+        run: sh bin/OpenEncoder.com --self-check
+      - name: OpenEncoder.com app inventory
+        run: sh bin/OpenEncoder.com --list-apps
+      - name: OpenEncoder.com synthetic E2E
+        run: >-
+          sh bin/OpenEncoder.com --synthetic-e2e
+          --app openencoder
+          --documents "OpenEncoder Linux portable proof document. The answer is recovered from the local RAM ledger."
+          --question "Where is the answer recovered from?"
+          --answer-output /tmp/openencoder_linux_ape_answer.txt
