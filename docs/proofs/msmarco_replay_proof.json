@@ -1,0 +1,139 @@
+{
+  "cache_locator": "local-msmarco-arrow-cache-fingerprint-sha256:bee4127db3c23137",
+  "claim_boundary": "OpenEncoder-only encode/decode deterministic replay; no sibling-repo dependency, no retrieval-quality claim; legacy BN254 pairing fixture is covered by docs/proofs/groth16_verification_proof.json.",
+  "compatibility_gate_passed": true,
+  "corpus_file_count": 9,
+  "dataset_config": "v2.1",
+  "dataset_name": "ms_marco",
+  "decode_run_a_hashes": {
+    "answer_rows_sha256": "2c3987c7698793b361ea2f581ff253d090ec9c70cca5ca661901c00d576b7fa0",
+    "decoded_payload_sha256": "21b1e8384297b11ebd7fa20cf75124deab09a920e7bd34a6624799722d4b4956",
+    "decoded_sha256": "0573a538b99e423aeb35efb9b0c00530d0e5473f6a789fe78be83623e4d755e8"
+  },
+  "decode_run_b_hashes": {
+    "answer_rows_sha256": "2c3987c7698793b361ea2f581ff253d090ec9c70cca5ca661901c00d576b7fa0",
+    "decoded_payload_sha256": "21b1e8384297b11ebd7fa20cf75124deab09a920e7bd34a6624799722d4b4956",
+    "decoded_sha256": "0573a538b99e423aeb35efb9b0c00530d0e5473f6a789fe78be83623e4d755e8"
+  },
+  "deterministic_receipt_passed": true,
+  "encode_run_a_hashes": {
+    "emission_sha256": "9699b96e10e30dec3debc790c85afa560ba6e0e942a42754ca84eeeeb197d126",
+    "ledger_sha256": "b77dc64a6d0f5f929065003fe8aa29be112c9254026bad45f16dadf1c82962b5",
+    "request_payload_sha256": "1fa3d316d92fb31b037f290f80ccc250dc2a822eb6c2da78e7cff8073c6831e0",
+    "request_sha256": "551348776592a2a9228aafafc7c26ff09651ff06c0696870b42eee8f76c3209f"
+  },
+  "encode_run_b_hashes": {
+    "emission_sha256": "9699b96e10e30dec3debc790c85afa560ba6e0e942a42754ca84eeeeb197d126",
+    "ledger_sha256": "b77dc64a6d0f5f929065003fe8aa29be112c9254026bad45f16dadf1c82962b5",
+    "request_payload_sha256": "1fa3d316d92fb31b037f290f80ccc250dc2a822eb6c2da78e7cff8073c6831e0",
+    "request_sha256": "551348776592a2a9228aafafc7c26ff09651ff06c0696870b42eee8f76c3209f"
+  },
+  "encoder": {
+    "context": "msmarco-replay",
+    "ledger_time": "2026-05-20T00:00:00+00:00",
+    "limit": 10,
+    "script": "client_field_encoder.py",
+    "width": 64
+  },
+  "exact_replay_checks": {
+    "all_questions_answered": true,
+    "compatibility_gate_passed": true,
+    "decode_hashes.answer_rows_sha256": true,
+    "decode_hashes.decoded_payload_sha256": true,
+    "decode_hashes.decoded_sha256": true,
+    "encode_hashes.emission_sha256": true,
+    "encode_hashes.ledger_sha256": true,
+    "encode_hashes.request_payload_sha256": true,
+    "encode_hashes.request_sha256": true,
+    "field_encoding": true,
+    "identifiers.client_request_id": true,
+    "identifiers.corpus_hash": true,
+    "identifiers.query_payload_hashes": true,
+    "ledger_hash_chain_passed": true,
+    "local_excerpt_recovery_percent": true,
+    "receipt_passed": true,
+    "request_plaintext_audit": true,
+    "resolved_reference_count": true,
+    "unresolved_reference_count": true
+  },
+  "exact_replay_passed": true,
+  "fixture_manifest": {
+    "corpus_file_count": 9,
+    "passages_per_query": 3,
+    "query_count": 3,
+    "rows": [
+      {
+        "corpus_files": [
+          "corpus/q000000_1102432_p00.txt",
+          "corpus/q000000_1102432_p01.txt",
+          "corpus/q000000_1102432_p02.txt"
+        ],
+        "expected_answer_present": false,
+        "query_file": "query/q000000_1102432.txt",
+        "query_id_sha256": "1180135b74d7b938f70cf9dc08b12e1e6ab08380b06df05fe5f05b0193ed23c8",
+        "selected_indexes": [
+          5
+        ]
+      },
+      {
+        "corpus_files": [
+          "corpus/q000001_1102431_p00.txt",
+          "corpus/q000001_1102431_p01.txt",
+          "corpus/q000001_1102431_p02.txt"
+        ],
+        "expected_answer_present": false,
+        "query_file": "query/q000001_1102431.txt",
+        "query_id_sha256": "91a7a895ee46e86946b9103b16f152eca47a18dd0f2aa492ad39b8c428a25c90",
+        "selected_indexes": [
+          4,
+          5
+        ]
+      },
+      {
+        "corpus_files": [
+          "corpus/q000002_1102421_p00.txt",
+          "corpus/q000002_1102421_p01.txt",
+          "corpus/q000002_1102421_p02.txt"
+        ],
+        "expected_answer_present": false,
+        "query_file": "query/q000002_1102421.txt",
+        "query_id_sha256": "4702de386af1f76cb2b9bd3ddb4757c61310c52a5fabf9b23d1b39a179a2269e",
+        "selected_indexes": []
+      }
+    ],
+    "schema_version": "openencoder-msmarco-fixture-manifest-v1"
+  },
+  "fixture_manifest_sha256": "4897ea6e32b5a4bae0b2e86bce47dee53a9752fb385613a97b0d3d3f9089b4dd",
+  "forbidden_dependency_surfaces": [],
+  "full_run": false,
+  "ledger_hash_chain_passed": true,
+  "local_excerpt_recovery_definition": "Percent of queries for which the local decoder recovered a source-backed excerpt from the private ledger/source files; not MS MARCO answer correctness.",
+  "local_excerpt_recovery_percent": 100.0,
+  "passages_per_query": 3,
+  "proof_passed": true,
+  "query_file_count": 3,
+  "request_plaintext_audit": {
+    "run_a": {
+      "checked_source_file_count": 12,
+      "leaked_source_file_count": 0,
+      "leaked_source_files": [],
+      "passed": true
+    },
+    "run_b": {
+      "checked_source_file_count": 12,
+      "leaked_source_file_count": 0,
+      "leaked_source_files": [],
+      "passed": true
+    }
+  },
+  "request_plaintext_audit_passed": true,
+  "run_artifacts": {
+    "replay_run_dir": "artifacts/msmarco_replay_proof/run",
+    "run_a_snapshot": "artifacts/msmarco_replay_proof/run_a_snapshot",
+    "run_b_snapshot": "artifacts/msmarco_replay_proof/run_b_snapshot"
+  },
+  "sample_size": 3,
+  "schema_version": "openencoder-msmarco-standalone-replay-proof-v1",
+  "split": "validation",
+  "unresolved_reference_count": 0
+}

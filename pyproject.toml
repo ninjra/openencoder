@@ -1,0 +1,15 @@
+[project]
+name = "openencoder"
+version = "1.0.0"
+description = "Standalone client-side field encoder and local answer decoder"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+dependencies = ["py-ecc>=8.0.0,<9"]
+
+[tool.setuptools]
+py-modules = ["client_field_encoder", "openencoder_groth16"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

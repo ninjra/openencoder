@@ -1,0 +1,27 @@
+name: release-attestation
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  openencoder_binary_attestation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Verify release binary hash
+        run: |
+          echo "523ca8b008c45ef89c3a387efdb557e0ea6f3a8cfa39962f935075575c3183e2  bin/OpenEncoder.com" | sha256sum -c -
+      - name: Enforce release gates
+        run: python3 scripts/check_release_gates.py
+      - name: Attest OpenEncoder.com build provenance
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: bin/OpenEncoder.com

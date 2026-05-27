@@ -1,0 +1,27 @@
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+outbox/
+ledger/
+answers/
+decoded/
+decoded_answers.json
+decoded_answers.txt
+config.json
+*.local.json
+.release-privacy-denylist.local
+.zig-cache/
+zig-out/
+# Build outputs
+*.exe
+*.pdb
+*.ilk
+# Local artifacts
+*.log
+*.err
+artifacts/
+repomix-output.xml
+# Private disclosure packets
+docs/materials/
+docs/packet_artifacts/
