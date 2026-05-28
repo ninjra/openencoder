@@ -28,10 +28,10 @@
       "proof_value_matches": true
     }
   ],
-  "artifact_payload_sha256": "b5cd08d59c045ea07beb4113b62e777d0892f2bb3e2ec673828269ea0fb97832",
+  "artifact_payload_sha256": "9466f5c4ce2a42731a099c3186f5ddf35bfb2bdc052c7ecb061268329c2cf971",
   "blocker_count": 0,
   "blockers": [],
-  "claim_boundary": "OpenEncoder+Gravitas MS MARCO public wording must claim the checked stream encode/decode parity PASS and Gravitas submission artifact while keeping semantic retrieval ranking out of scope.",
+  "claim_boundary": "OpenEncoder+Gravitas MS MARCO public wording must claim the checked stream encode/decode parity PASS and Gravitas submission receipt while keeping MSSQL/Gravitas authority separate from rendered files.",
   "forbidden_claim_fragment_sha256": [
     "5b5c19fad93c2a012441fc549639da997f0954bd95329840da236490076d97e5",
     "b96e069a5310954088e085fcbcfed6980984c57b89ea3240551fd14c92fe09d1",
@@ -49,18 +49,18 @@
   "public_claim_files": [
     {
       "path": "README.md",
-      "sha256": "70589ed4ac3f76b5c4729d1ee6c19e497f27055e82978c460901e1a0d3cbface",
-      "size_bytes": 17789
+      "sha256": "c41745467d41b32522a878c63bdd84e250f4097774bc8d7371ec96297208f566",
+      "size_bytes": 19809
     },
     {
       "path": "PUBLIC_CLAIMS.md",
-      "sha256": "d8d1c1557542b5fa60722ad8475bf8e75d32198426486e44ed963c9de07780d0",
-      "size_bytes": 6627
+      "sha256": "61ef7c1467069ab1e8ad7ad5d9ca3b1dbef3dd5979b574e8fce274ef18f9f2c3",
+      "size_bytes": 8634
     },
     {
       "path": "RELEASE_ATTESTATION.md",
-      "sha256": "82b7ab7bbc12dc0e214fdc7b4ea5441c95d5db6156f57aef0451129bf293825b",
-      "size_bytes": 5745
+      "sha256": "6153db07f8f37d8f8221360d5d16db6f87892af67a9f483419565c1268b4df94",
+      "size_bytes": 5744
     },
     {
       "path": "CHANGELOG.md",
@@ -69,8 +69,8 @@
     },
     {
       "path": "docs/BENCHMARKS.md",
-      "sha256": "e2ac3dedc45bc9835c8fdab92a17666d3ee1c51e1d0522866dbc14bb961b3d6a",
-      "size_bytes": 23458
+      "sha256": "c00adc95801150df26908196ccba4ddc11a29a478ee0e4a2bce19ba947fe522d",
+      "size_bytes": 25414
     },
     {
       "path": "docs/MSMARCO_REPRODUCTION.md",
@@ -84,13 +84,17 @@
     }
   ],
   "required_claim_fragments": [
-    "| Benchmark  | OpenEncoder+Gravitas                                 | Ionizer+Gravitas",
-    "| Legal-MLEB | PASS: 538/2,535 top-1; acc 0.21222880                | PASS: 2,535/2,535 top-1; acc 1.00000000 |",
-    "| MS MARCO   | PASS: 138,649,526 parity sources; Gravitas submitted | NO CHECKED ARTIFACT IN THIS REPO        |",
+    "| Benchmark            | Lane                 | Status                 | Scale",
+    "| Legal-MLEB           | OpenEncoder+Gravitas | PASS comparator        | 2,535 q; 7,635 corpus; 2,580 qrels",
+    "| Legal-MLEB           | Ionizer+Gravitas     | PASS fullbar           | 2,535 q; 7,635 corpus; 2,580 qrels",
+    "| MS MARCO v2 passage  | Ionizer+Gravitas     | PASS world fullbar     | 285,328 q; 138,364,198 records; 285,328,000 rank entries",
+    "| MS MARCO stream      | OpenEncoder+Gravitas | PASS parity            | 285,328 q + 138,364,198 passages = 138,649,526 sources",
+    "| MS MARCO local cache | OpenEncoder+Gravitas | PASS parity submission | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources",
+    "MSSQL fullbar_world_metric_receipts; commit 5bb633581468eb66",
     "| OpenEncoder+Gravitas | MS MARCO parity proof PASS; Gravitas submitted |",
     "mteb/msmarco-v2 stream parity| 138.6M srcs | PASS",
-    "OpenEncoder+Gravitas MS MARCO  | parity proof PASS; Gravitas submission artifact",
-    "OpenEncoder+Gravitas MS MARCO| PASS; stream parity proof + Gravitas artifact",
+    "OpenEncoder+Gravitas MS MARCO  | parity proof PASS; Gravitas submission receipt",
+    "OpenEncoder+Gravitas MS MARCO| PASS; stream parity proof + Gravitas receipt",
     "OpenEncoder+Gravitas MS MARCO stream parity | PASS",
     "MS MARCO semantic retrieval benchmark | out of scope; no ranking metric",
     "docs/proofs/msmarco_v2_real_proof.json",

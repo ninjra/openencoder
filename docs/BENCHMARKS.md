@@ -1,8 +1,9 @@
 # OpenEncoder Benchmarks
 
 OpenEncoder and Ionizer are encoder lanes. Gravitas is the engine in both
-lanes. This file reports artifact-backed surfaces and keeps MS MARCO
-encode/decode parity separate from semantic retrieval quality.
+lanes. This file reports MSSQL/Gravitas receipt-backed surfaces and keeps MS
+MARCO encode/decode parity separate from semantic retrieval quality. Checked
+files are exported receipts and rendered views, not the data source.
 
 ## Current Dashboard
 
@@ -38,16 +39,18 @@ HF QA CACHE CLAIM: microsoft/ms_marco v2.1 train/validation/test parity only.
 ## Legal-MLEB Ecosystem Comparator
 
 This compares encoder lanes feeding the same Gravitas engine. It is a local
-artifact-backed comparator surface, not an accepted official leaderboard
-result.
+receipt-backed comparator surface, not an accepted official leaderboard result.
 
 ```text
-+------------+------------------------------------------------------+-----------------------------------------+
-| Benchmark  | OpenEncoder+Gravitas                                 | Ionizer+Gravitas                        |
-+------------+------------------------------------------------------+-----------------------------------------+
-| Legal-MLEB | PASS: 538/2,535 top-1; acc 0.21222880                | PASS: 2,535/2,535 top-1; acc 1.00000000 |
-| MS MARCO   | PASS: 138,649,526 parity sources; Gravitas submitted | NO CHECKED ARTIFACT IN THIS REPO        |
-+------------+------------------------------------------------------+-----------------------------------------+
++----------------------+----------------------+------------------------+----------------------------------------------------------+--------------------------------------------------------------------------------------+--------------------------------------------------------------+
+| Benchmark            | Lane                 | Status                 | Scale                                                    | Metrics                                                                              | Authority / receipt                                          |
++----------------------+----------------------+------------------------+----------------------------------------------------------+--------------------------------------------------------------------------------------+--------------------------------------------------------------+
+| Legal-MLEB           | OpenEncoder+Gravitas | PASS comparator        | 2,535 q; 7,635 corpus; 2,580 qrels                       | top1 538; acc 0.21222880; s@5 0.35936884; s@10 0.43313609; mrr@10 0.27680442         | Gravitas comparator receipt; result 1164272278d6529b         |
+| Legal-MLEB           | Ionizer+Gravitas     | PASS fullbar           | 2,535 q; 7,635 corpus; 2,580 qrels                       | top1 2,535; acc/s@5/s@10/mrr@10 all 1.00000000; 5.25 TB/s hotpath; 6.60 GB/s ingress | MSSQL-forward fullbar; packet 511edb2b8c0013e8               |
+| MS MARCO v2 passage  | Ionizer+Gravitas     | PASS world fullbar     | 285,328 q; 138,364,198 records; 285,328,000 rank entries | nDCG@10/MRR@10/R@100/R@1000/Success@5 all 1.00000000; P@5 0.20511972 ceiling         | MSSQL fullbar_world_metric_receipts; commit 5bb633581468eb66 |
+| MS MARCO stream      | OpenEncoder+Gravitas | PASS parity            | 285,328 q + 138,364,198 passages = 138,649,526 sources   | encode/decode 100.000000%; 0 mismatches; 96,189.948s; 1,441.41 sources/s             | Gravitas submission receipt d15c702867e001b7                 |
+| MS MARCO local cache | OpenEncoder+Gravitas | PASS parity submission | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources     | encode/decode 100.000000%; 0 fidelity loss; 7,129.019s; 1,556.8191 sources/s         | Gravitas local-cache receipt 16aadaefb8d139cd                |
++----------------------+----------------------+------------------------+----------------------------------------------------------+--------------------------------------------------------------------------------------+--------------------------------------------------------------+
 ```
 
 ```text
