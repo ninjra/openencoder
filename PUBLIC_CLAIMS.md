@@ -70,14 +70,24 @@ Use measured artifact-backed language for release claims. Keep benchmark
 surfaces named and separated.
 
 ```text
++------------+------------------------------------------------------+-----------------------------------------+
+| Benchmark  | OpenEncoder+Gravitas                                 | Ionizer+Gravitas                        |
++------------+------------------------------------------------------+-----------------------------------------+
+| Legal-MLEB | PASS: 538/2,535 top-1; acc 0.21222880                | PASS: 2,535/2,535 top-1; acc 1.00000000 |
+| MS MARCO   | PASS: 138,649,526 parity sources; Gravitas submitted | NO CHECKED ARTIFACT IN THIS REPO        |
++------------+------------------------------------------------------+-----------------------------------------+
+```
+
+```text
 +--------------------------------+---------------------------------------------+
 | Surface                        | Allowed public wording                      |
 +--------------------------------+---------------------------------------------+
 | Legal-MLEB OpenEncoder+Gravitas| comparator lane, not OpenEncoder production readiness |
 | Legal-MLEB Ionizer+Gravitas    | commercial receipt-backed lane              |
 | mteb/msmarco-v2 full stream    | encode/decode parity over 285,328 queries and 138,364,198 passages |
-| OpenEncoder MS MARCO retrieval | not claimed; no semantic ranking metric     |
-| HF ms_marco v2.1 QA cache      | encode/decode parity only                   |
+| OpenEncoder+Gravitas MS MARCO  | parity proof PASS; Gravitas submission artifact |
+| MS MARCO semantic retrieval benchmark | out of scope; no ranking metric      |
+| HF ms_marco v2.1 QA cache      | local-cache parity proof PASS               |
 +--------------------------------+---------------------------------------------+
 ```
 

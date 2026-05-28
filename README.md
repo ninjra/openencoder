@@ -16,48 +16,39 @@ boundary; the service contract only requires the emitted field envelope.
 
 ## Reference Boundary
 
-```text
-+-------------------------+-----------------------------------------------+
-| Surface                 | OpenEncoder Claim                             |
-+-------------------------+-----------------------------------------------+
-| Local source text       | not emitted in tested request/manifest files  |
-| Field envelope          | deterministic signed int16 reference lane     |
-| Decode                  | local ledger/source-backed excerpt recovery   |
-| Security posture        | reference kit, not encryption                 |
-| Binary provenance       | hash-attested artifact, not reproducible build|
-| Groth16 zkSNARK         | pinned circuit proof packet passes release gate|
-+-------------------------+-----------------------------------------------+
-```
+| Surface | OpenEncoder Claim |
+|---|---|
+| Local source text | not emitted in tested request/manifest files |
+| Field envelope | deterministic signed int16 reference lane |
+| Decode | local ledger/source-backed excerpt recovery |
+| Security posture | reference kit, not encryption |
+| Binary provenance | hash-attested artifact, not reproducible build |
+| Groth16 zkSNARK | pinned circuit proof packet passes release gate |
 
-## External Comparator Snapshot
+## OpenEncoder+Gravitas / Ionizer+Gravitas Benchmark Matrix
+
+```text
++------------+------------------------------------------------------+-----------------------------------------+
+| Benchmark  | OpenEncoder+Gravitas                                 | Ionizer+Gravitas                        |
++------------+------------------------------------------------------+-----------------------------------------+
+| Legal-MLEB | PASS: 538/2,535 top-1; acc 0.21222880                | PASS: 2,535/2,535 top-1; acc 1.00000000 |
+| MS MARCO   | PASS: 138,649,526 parity sources; Gravitas submitted | NO CHECKED ARTIFACT IN THIS REPO        |
++------------+------------------------------------------------------+-----------------------------------------+
+```
 
 Retrieval quality and proof-surface claims are intentionally separated. The
-OpenEncoder comparator number is an answer-quality metric. The receipt/replay
-and no-raw-source-text checks are proof-surface metrics.
+OpenEncoder Legal-MLEB comparator number is an answer-quality metric. The MS
+MARCO OpenEncoder+Gravitas result is an encode/decode parity proof.
 
-```text
-+--------------------------+-----------------------+---------------------------+
-| Retrieval Quality        | OpenEncoder+Gravitas  | Ionizer+Gravitas          |
-+--------------------------+-----------------------+---------------------------+
-| Legal-MLEB local run     | 538 / 2,535 top-1     | 2,535 / 2,535 top-1       |
-| Legal-MLEB accuracy      | 0.21222880            | 1.00000000                |
-| Official leaderboard     | not claimed           | not claimed               |
-+--------------------------+-----------------------+---------------------------+
-```
-
-```text
-+--------------------------+-----------------------+---------------------------+
-| Proof Surface            | OpenEncoder+Gravitas  | Ionizer+Gravitas          |
-+--------------------------+-----------------------+---------------------------+
-| Encoder                  | OpenEncoder           | Ionizer                   |
-| Engine                   | Gravitas              | Gravitas                  |
-| Hotpath                  | Zig                   | Zig                       |
-| Python hotpath           | false                 | false                     |
-| Deterministic replay     | true                  | true                      |
-| Raw source text egress   | 0 bytes               | 0 bytes                   |
-| GPU VRAM required        | 0 GB                  | 0 GB                      |
-+--------------------------+-----------------------+---------------------------+
-```
+| Proof Surface | OpenEncoder+Gravitas | Ionizer+Gravitas |
+|---|---|---|
+| Encoder | OpenEncoder | Ionizer |
+| Engine | Gravitas | Gravitas |
+| Hotpath | Zig | Zig |
+| Python hotpath | false | false |
+| Deterministic replay | true | true |
+| Raw source text egress | 0 bytes | 0 bytes |
+| GPU VRAM required | 0 GB | 0 GB |
 
 OpenEncoder and Ionizer are encoder lanes. Gravitas is the engine in both
 lanes. Ionizer+Gravitas is the commercial receipt-backed path.
@@ -69,20 +60,17 @@ encoder. A compatible field service receives field tensors plus necessary
 auth/submission metadata; source text, local ledgers, client secrets, and
 decoded answer reports remain local.
 
-```text
-+-----------------------------+----------------------------------------------+
-| Surface                     | Boundary                                     |
-+-----------------------------+----------------------------------------------+
-| mteb/msmarco-v2 full stream | 285,328 queries + 138,364,198 passages       |
-| Ionizer+Gravitas            | receipt-backed baseline exists              |
-| OpenEncoder+Gravitas        | encode/decode parity only; retrieval not claimed |
-| HF ms_marco v2.1 QA cache   | encode/decode parity only, separate surface  |
-+-----------------------------+----------------------------------------------+
-```
+| Surface | Boundary |
+|---|---|
+| mteb/msmarco-v2 full stream | 285,328 queries + 138,364,198 passages |
+| Ionizer+Gravitas | receipt-backed Legal-MLEB baseline exists |
+| OpenEncoder+Gravitas | MS MARCO parity proof PASS; Gravitas submitted |
+| HF ms_marco v2.1 QA cache | local-cache parity proof PASS, separate surface |
 
 This comparator belongs to the wider OpenEncoder/Ionizer/Gravitas ecosystem.
-It is a local comparator run, not an accepted official leaderboard result, and
-not an OpenEncoder standalone production-readiness claim. Full evidence:
+It is a local comparator run. The MS MARCO claim is artifact-backed
+encode/decode parity, not semantic ranking quality or an official leaderboard
+acceptance. Full evidence:
 `docs/BENCHMARKS.md`.
 
 ## How It Works

@@ -42,6 +42,15 @@ artifact-backed comparator surface, not an accepted official leaderboard
 result.
 
 ```text
++------------+------------------------------------------------------+-----------------------------------------+
+| Benchmark  | OpenEncoder+Gravitas                                 | Ionizer+Gravitas                        |
++------------+------------------------------------------------------+-----------------------------------------+
+| Legal-MLEB | PASS: 538/2,535 top-1; acc 0.21222880                | PASS: 2,535/2,535 top-1; acc 1.00000000 |
+| MS MARCO   | PASS: 138,649,526 parity sources; Gravitas submitted | NO CHECKED ARTIFACT IN THIS REPO        |
++------------+------------------------------------------------------+-----------------------------------------+
+```
+
+```text
 LEGAL-MLEB 2025 ECOSYSTEM COMPARATOR
 Generated: 2026-05-25
 Dataset:   legal_mleb_2025 full aggregate
@@ -112,12 +121,12 @@ OpenEncoder.com SHA-256:
 +----------------------------------+---------------------------------------------+
 | OpenEncoder+Gravitas comparator  | PASS                                        |
 | OpenEncoder zero-egress lane     | PASS                                        |
-| OpenEncoder+Gravitas stream parity| PASS                                       |
-| OpenEncoder+Gravitas retrieval production | NOT CLAIMED                         |
+| OpenEncoder+Gravitas MS MARCO stream parity | PASS                              |
+| MS MARCO semantic retrieval benchmark | OUT OF SCOPE; no ranking metric       |
 | Ionizer+Gravitas MLEB receipt    | PASS, 1.00000000                            |
 | Python deterministic authority   | false                                       |
 | GPU / accelerator requirement    | 0 GB                                        |
-| Official external leaderboard    | NOT CLAIMED until maintainer acceptance     |
+| Official external leaderboard    | OUT OF SCOPE until maintainer acceptance    |
 +----------------------------------+---------------------------------------------+
 ```
 

@@ -34,7 +34,7 @@ These gates define the public v1.0.0 release boundary.
 | HF ms_marco QA parity proof    | PASS     | docs/proofs/msmarco_full_parity_proof.json |
 | HF ms_marco QA replay proof    | PASS     | docs/proofs/msmarco_replay_proof.json      |
 | mteb/msmarco-v2 stream parity  | PASS     | docs/proofs/msmarco_v2_real_proof.json     |
-| MS MARCO retrieval quality     | NO CLAIM | parity artifact only; no ranking metric    |
+| MS MARCO retrieval quality     | OUT OF SCOPE | parity artifact only; no ranking metric |
 | Legacy BN254 pairing fixture   | PASS     | groth16_verification_proof.json            |
 | Real Groth16 circuit proof     | PASS     | docs/proofs/openencoder_real_groth16_circuit_manifest.json |
 | Release gate script            | PASS     | scripts/check_release_gates.py             |
@@ -84,10 +84,10 @@ Do not replace measured values with projections. Projections belong outside the 
 +------------------------------+---------------------------------------------+
 | Surface                      | Release Claim                               |
 +------------------------------+---------------------------------------------+
-| mteb/msmarco-v2 stream parity| PASS for OpenEncoder+Gravitas parity only   |
+| OpenEncoder+Gravitas MS MARCO| PASS; stream parity proof + Gravitas artifact |
 | Stream scale                 | 285,328 queries + 138,364,198 passages      |
-| MS MARCO retrieval quality   | NOT CLAIMED                                 |
-| HF microsoft/ms_marco v2.1   | QA-cache encode/decode parity only          |
+| MS MARCO semantic retrieval  | OUT OF SCOPE; no ranking metric             |
+| HF microsoft/ms_marco v2.1   | local-cache parity proof PASS               |
 | QA-cache splits              | train, validation, test                     |
 +------------------------------+---------------------------------------------+
 ```

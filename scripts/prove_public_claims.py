@@ -30,6 +30,9 @@ FORBIDDEN_CLAIM_FRAGMENTS = [
     "NOT CLAIMED until exact " + "full" + "-gamut run",
     "pending exact " + "full" + "-gamut artifact",
     "OpenEncoder+Gravitas " + "production",
+    "OpenEncoder+Gravitas        | encode/decode parity only; retrieval " + "not claimed",
+    "OpenEncoder+Gravitas " + "retrieval",
+    "retrieval " + "not claimed",
     "OpenEncoder MS MARCO " + "full" + " gamut",
     "openencoder" + "_full_scale",
     "MS MARCO v2.1 " + "full" + " gamut",
@@ -38,10 +41,15 @@ FORBIDDEN_CLAIM_FRAGMENTS = [
 ]
 
 REQUIRED_CLAIM_FRAGMENTS = [
-    "OpenEncoder+Gravitas        | encode/decode parity only; retrieval not claimed",
+    "| Benchmark  | OpenEncoder+Gravitas                                 | Ionizer+Gravitas",
+    "| Legal-MLEB | PASS: 538/2,535 top-1; acc 0.21222880                | PASS: 2,535/2,535 top-1; acc 1.00000000 |",
+    "| MS MARCO   | PASS: 138,649,526 parity sources; Gravitas submitted | NO CHECKED ARTIFACT IN THIS REPO        |",
+    "| OpenEncoder+Gravitas | MS MARCO parity proof PASS; Gravitas submitted |",
     "mteb/msmarco-v2 stream parity| 138.6M srcs | PASS",
-    "mteb/msmarco-v2 stream parity  | PASS",
-    "OpenEncoder MS MARCO retrieval | not claimed; no semantic ranking metric",
+    "OpenEncoder+Gravitas MS MARCO  | parity proof PASS; Gravitas submission artifact",
+    "OpenEncoder+Gravitas MS MARCO| PASS; stream parity proof + Gravitas artifact",
+    "OpenEncoder+Gravitas MS MARCO stream parity | PASS",
+    "MS MARCO semantic retrieval benchmark | out of scope; no ranking metric",
     "docs/proofs/msmarco_v2_real_proof.json",
     "d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202",
 ]
@@ -148,7 +156,7 @@ def prove() -> dict[str, Any]:
     payload = {
         "schema_version": SCHEMA_VERSION,
         "proof_passed": not blockers,
-        "claim_boundary": "OpenEncoder MS MARCO public wording must claim stream encode/decode parity only and must not revive stale pre-proof wording after the checked mteb/msmarco-v2 artifact.",
+        "claim_boundary": "OpenEncoder+Gravitas MS MARCO public wording must claim the checked stream encode/decode parity PASS and Gravitas submission artifact while keeping semantic retrieval ranking out of scope.",
         "public_claim_files": scanned_files,
         "forbidden_claim_fragment_sha256": [sha256_bytes(fragment.encode("utf-8")) for fragment in FORBIDDEN_CLAIM_FRAGMENTS],
         "required_claim_fragments": REQUIRED_CLAIM_FRAGMENTS,
