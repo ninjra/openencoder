@@ -73,9 +73,9 @@ decoded answer reports remain local.
 +-----------------------------+----------------------------------------------+
 | Surface                     | Boundary                                     |
 +-----------------------------+----------------------------------------------+
-| MS MARCO v2.1 full gamut    | 285,328 queries x 138,364,198 records        |
+| mteb/msmarco-v2 full stream | 285,328 queries + 138,364,198 passages       |
 | Ionizer+Gravitas            | receipt-backed baseline exists              |
-| OpenEncoder+Gravitas        | NOT CLAIMED until exact full-gamut run       |
+| OpenEncoder+Gravitas        | encode/decode parity only; retrieval not claimed |
 | HF ms_marco v2.1 QA cache   | encode/decode parity only, separate surface  |
 +-----------------------------+----------------------------------------------+
 ```
@@ -215,10 +215,11 @@ Validation installs the required Groth16 dependency and runs the proof-backed pa
 
 ```bash
 python3 -m pip install . pytest
-python3 -m py_compile client_field_encoder.py openencoder_groth16.py scripts/prove_reference_replay.py scripts/prove_msmarco_replay.py scripts/prove_msmarco_full_parity.py scripts/package_portable_launcher_ape.py scripts/release_privacy_scan.py
+python3 -m py_compile client_field_encoder.py openencoder_groth16.py scripts/prove_reference_replay.py scripts/prove_msmarco_replay.py scripts/prove_msmarco_full_parity.py scripts/prove_msmarco_v2_real_parity.py scripts/prove_public_claims.py scripts/compare_msmarco_v2_real.py scripts/package_portable_launcher_ape.py scripts/release_privacy_scan.py
 python3 client_field_encoder.py requirements > /tmp/openencoder_requirements.json
 python3 -m json.tool /tmp/openencoder_requirements.json >/dev/null
 python3 scripts/release_privacy_scan.py
+python3 scripts/prove_public_claims.py
 python3 -m pytest tests/test_client_field_encoder_smoke.py -q --tb=short
 python3 scripts/prove_reference_replay.py
 ```
@@ -243,7 +244,7 @@ OpenEncoder.com endpoint validation:
 | Track                        | Target      | Status      | Evidence                                      |
 +------------------------------+-------------+-------------+-----------------------------------------------+
 | Encode determinism           | 100% replay | PASS        | docs/proofs/reference_replay_proof.json       |
-| MS MARCO v2.1 full gamut     | 285k x 138M | NOT CLAIMED | pending exact full-gamut artifact             |
+| mteb/msmarco-v2 stream parity| 138.6M srcs | PASS        | docs/proofs/msmarco_v2_real_proof.json        |
 | HF ms_marco v2.1 QA parity   | 11.1M items | PASS        | docs/proofs/msmarco_full_parity_proof.json    |
 | Signed int16 reference path  | int16 dtype | PASS        | docs/proofs/reference_replay_proof.json       |
 | File-backed local recovery   | report all  | PASS        | docs/proofs/reference_replay_proof.json       |
@@ -260,11 +261,12 @@ OpenEncoder.com endpoint validation:
 +--------------------------+----------------------------------------------+
 | MS MARCO surface         | Value                                        |
 +--------------------------+----------------------------------------------+
-| canonical_query_count    | 285,328                                      |
-| canonical_record_count   | 138,364,198                                  |
-| openencoder_full_scale   | NOT CLAIMED                                  |
+| mteb_stream_queries      | 285,328                                      |
+| mteb_stream_passages     | 138,364,198                                  |
+| mteb_stream_sources      | 138,649,526                                  |
+| openencoder_full_stream  | PASS, encode/decode parity only              |
 | hf_qa_cache_scope        | microsoft/ms_marco v2.1 train/validation/test|
-| hf_qa_cache_role         | encode/decode parity, not full-gamut search  |
+| hf_qa_cache_role         | encode/decode parity, not retrieval search   |
 +--------------------------+----------------------------------------------+
 ```
 
@@ -281,8 +283,11 @@ openencoder/
     OpenEncoder.com                # single-file Zig endpoint (see docs/OPENENCODER_PORTABLE_ENDPOINT.md)
   scripts/
     prove_reference_replay.py      # deterministic replay proof
-    prove_msmarco_replay.py        # HF QA cache replay; not full-gamut authority
-    prove_msmarco_full_parity.py   # HF QA cache parity; not full-gamut authority
+    prove_msmarco_replay.py        # HF QA cache replay; not retrieval authority
+    prove_msmarco_full_parity.py   # HF QA cache parity; not retrieval authority
+    prove_msmarco_v2_real_parity.py # mteb/msmarco-v2 stream parity proof
+    prove_public_claims.py         # fail-closed public claim wording proof
+    compare_msmarco_v2_real.py     # interop check for stream proof handoffs
     package_portable_launcher_ape.py
     release_privacy_scan.py
   docs/
@@ -320,12 +325,18 @@ Machine-readable version:
 python3 client_field_encoder.py requirements
 ```
 
-## HF QA Cache Parity Hashes
+## MS MARCO Parity Hashes
 
 ```text
 +--------------------------+------------------------------------------------------------------+
 | Artifact                 | SHA-256                                                          |
 +--------------------------+------------------------------------------------------------------+
+| msmarco_v2_real_payload  | d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202 |
+| msmarco_v2_real_file     | 38782428a27e12e2ef3da5ccd137f90d8e270546e68bec1a87a520633dc24932 |
+| msmarco_v2_public_handoff| a640232df9ae6400a54371be3aa41e9364c1365a2843a8f7c06722ea27cf9125 |
+| msmarco_v2_runtime_log   | 656107eaa6180824b0018c2fdfa8623d07013e770a10e748bdddbb4cfb34ff45 |
+| gravitas_submission_file | 92e8a052b5bb0c7fc1246c26c947af52796731c9d65d4344c7e7a0f37cf951b7 |
+| gravitas_reported_artifact | 16aadaefb8d139cd32a2855c2c810c596f30afb1634aa2cc00b5e35dbc17a6aa |
 | msmarco_full_parity      | fd4d778b065f62ae5b7f60e40bd0e705813b47684c0471a902940181bda73e1c |
 | source_chain_sha256      | c493488583133dbaf89a56dd119cb5d237a74e36d1a8721e430f8713fde48bd2 |
 | decode_chain_sha256      | a64c858d59b4b8239f6a45da5d695b3b2850261dc6d78922dc1a93d0267266cc |

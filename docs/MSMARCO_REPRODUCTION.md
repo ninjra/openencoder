@@ -1,15 +1,9 @@
-# Hugging Face MS MARCO QA-Cache Parity
+# MS MARCO Parity Reproduction
 
-This guide reproduces the checked OpenEncoder encode/decode parity proof for
-the Hugging Face `microsoft/ms_marco` `v2.1` Question Answering cache.
-
-This is not the full-gamut MS MARCO v2.1 run. The full-gamut boundary is
-`285,328` queries by `138,364,198` records and remains not claimed for
-OpenEncoder+Gravitas until an exact full-gamut artifact exists.
-
-OpenEncoder measures client fidelity only. This proof does not measure
-retrieval ranking, field-service quality, answer correctness, full-gamut MS
-MARCO throughput, or Groth16 proof verification.
+This guide documents the OpenEncoder MS MARCO encode/decode parity surfaces.
+OpenEncoder measures client-side fidelity only. These proofs do not measure
+semantic retrieval ranking, field-service quality, answer correctness, or
+Groth16 proof verification.
 
 ## Dataset Attribution
 
@@ -25,42 +19,22 @@ MS MARCO is published by Microsoft.
 +-------------------------+------------------------------------------------------+
 ```
 
-The checked proof targets Hugging Face dataset `microsoft/ms_marco`,
-configuration `v2.1`, splits `train`, `validation`, and `test`.
-
-## Surface Boundary
+## Proof Boundaries
 
 ```text
 +-----------------------------+----------------------------------------------+
-| Field                       | Value                                        |
+| Surface                     | Boundary                                     |
 +-----------------------------+----------------------------------------------+
-| public_name                 | HF ms_marco v2.1 QA-cache parity             |
-| dataset                     | microsoft/ms_marco                           |
-| configuration               | v2.1                                         |
-| splits                      | train, validation, test                      |
-| measured_row_count          | 1,010,916                                    |
-| measured_query_count        | 1,010,916                                    |
-| measured_passage_count      | 10,087,677                                   |
-| encoded_source_count        | 11,098,593                                   |
-| decoded_source_count        | 11,098,593                                   |
-| role                        | encode/decode parity only                    |
-| full_gamut_ms_marco_claim   | false                                        |
-| retrieval_accuracy_claim    | false                                        |
+| microsoft/ms_marco v2.1     | QA-cache encode/decode parity                |
+| mteb/msmarco-v2             | retrieval-scale encode/decode parity         |
+| Retrieval ranking           | not claimed by these artifacts               |
+| Answer correctness          | not claimed by these artifacts               |
+| Field-service quality       | not claimed by these artifacts               |
+| Groth16 verification        | not claimed by these artifacts               |
 +-----------------------------+----------------------------------------------+
 ```
 
-```text
-+-----------------------------+----------------------------------------------+
-| Full-Gamut MS MARCO Field   | Required Value                               |
-+-----------------------------+----------------------------------------------+
-| canonical_query_count       | 285,328                                      |
-| canonical_record_count      | 138,364,198                                  |
-| openencoder_gravitas_claim  | NOT CLAIMED                                  |
-| ionizer_gravitas_baseline   | receipt-backed baseline exists              |
-+-----------------------------+----------------------------------------------+
-```
-
-## What The Proof Checks
+## What The Proofs Check
 
 ```text
 +-------------------------------+-----------------------------------------------+
@@ -76,7 +50,7 @@ configuration `v2.1`, splits `train`, `validation`, and `test`.
 +-------------------------------+-----------------------------------------------+
 ```
 
-## Reproduce The QA-Cache Parity Surface
+## QA-Cache Parity Surface
 
 Install the optional dataset tooling outside the core OpenEncoder dependency path:
 
@@ -101,10 +75,10 @@ python3 scripts/prove_msmarco_full_parity.py \
 
 The command prints a short JSON summary and writes the QA-cache parity artifact
 to `docs/proofs/msmarco_full_parity_proof.json`.
+The Gravitas submission summary for this local-cache surface is checked in at
+`docs/proofs/msmarco_full_parity_gravitas_submission.json`.
 
-## Expected QA-Cache Artifact Shape
-
-The checked artifact currently reports:
+Expected checked QA-cache artifact shape:
 
 ```text
 +-------------------------------+-----------------------------------------------+
@@ -123,15 +97,113 @@ The checked artifact currently reports:
 +-------------------------------+-----------------------------------------------+
 ```
 
-The artifact intentionally avoids raw MS MARCO text and local absolute paths.
-It must not be described as the full-gamut `285,328 x 138,364,198` run.
+## Retrieval-Scale Parity Surface
 
-## Verify The Artifact
+This repository also keeps a retrieval-scale parity handoff for
+`mteb/msmarco-v2`. This artifact covers the first `285,328` query rows and first
+`138,364,198` passage rows in deterministic streaming order.
+
+To reproduce the retrieval-scale parity proof locally:
+
+```bash
+python3 -m pip install datasets
+python3 scripts/prove_msmarco_v2_real_parity.py \
+  --query-limit 285328 \
+  --passage-limit 138364198 \
+  --output docs/proofs/msmarco_v2_real_proof.json
+```
+
+`mteb/msmarco-v2` provides:
+
+- queries stream: `285,328` rows.
+- corpus stream: `138,364,198` rows.
+
+`--query-limit` and `--passage-limit` control each stream independently.
+`--limit` remains a compatibility fallback when a single cap is intended for
+both streams.
+
+The resulting artifact is `docs/proofs/msmarco_v2_real_proof.json`. A public
+handoff manifest is available at
+`docs/proofs/msmarco_v2_real_public_handoff.json`.
+
+Expected retrieval-scale artifact shape:
+
+```text
++--------------------------------+-----------------------------------------------+
+| Field                          | Value                                         |
++--------------------------------+-----------------------------------------------+
+| proof_passed                   | true                                          |
+| dataset_id                     | mteb/msmarco-v2                               |
+| query_count                    | 285,328                                       |
+| passage_count                  | 138,364,198                                   |
+| encoded_decoded_source_count   | 138,649,526                                   |
+| encode_decode_accuracy_percent | 100.0                                         |
+| throughput_sources_per_second  | 1,441.41                                      |
+| elapsed_seconds                | 96,189.948                                    |
+| text_hash_mismatches           | 0                                             |
+| canonical_hash_mismatches      | 0                                             |
+| typed_atom_hash_mismatches     | 0                                             |
+| signal_replay_mismatches       | 0                                             |
+| field_receipt_replay_mismatches| 0                                             |
+| field_id_replay_mismatches     | 0                                             |
+| exceptions                     | 0                                             |
++--------------------------------+-----------------------------------------------+
+```
+
+The artifact intentionally avoids raw MS MARCO text and local absolute paths.
+
+Checked rebuild and handoff metadata:
+
+```text
++--------------------------------+-----------------------------------------------+
+| Field                          | Value                                         |
++--------------------------------+-----------------------------------------------+
+| finished_at                    | 2026-05-27T15:38:46-0600                     |
+| ended_at_iso                   | 2026-05-27T21:34:42Z                         |
+| rebuild_pid                    | 3368955                                      |
+| runtime_seconds                | 95,970.298                                   |
+| proof_payload_sha256           | d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202 |
+| proof_file_sha256              | 38782428a27e12e2ef3da5ccd137f90d8e270546e68bec1a87a520633dc24932 |
+| completion_file_sha256         | a8e12eddb382467e460eeb1fd0055849b4c4ca7f01eba36cc7e215fe5939b4d8 |
+| runtime_log_sha256             | 656107eaa6180824b0018c2fdfa8623d07013e770a10e748bdddbb4cfb34ff45 |
++--------------------------------+-----------------------------------------------+
+```
+
+The runtime log hash is transport evidence from the rebuild host. The large log
+is intentionally not checked into this repository.
+
+## Compare Retrieval-Scale Artifacts
+
+When comparing against another repository, use either positional arguments:
+
+```bash
+python3 scripts/compare_msmarco_v2_real.py \
+  docs/proofs/msmarco_v2_real_proof.json \
+  <other_repo>/docs/proofs/msmarco_v2_real_proof.json
+```
+
+or named arguments:
+
+```bash
+python3 scripts/compare_msmarco_v2_real.py \
+  --left docs/proofs/msmarco_v2_real_proof.json \
+  --right <other_repo>/docs/proofs/msmarco_v2_real_proof.json
+```
+
+## Verify Checked Artifacts
 
 ```bash
 python3 -m json.tool docs/proofs/msmarco_full_parity_proof.json >/dev/null
+python3 -m json.tool docs/proofs/msmarco_full_parity_gravitas_submission.json >/dev/null
+python3 -m json.tool docs/proofs/msmarco_v2_real_proof.json >/dev/null
+python3 -m json.tool docs/proofs/msmarco_v2_real_public_handoff.json >/dev/null
+python3 -m json.tool docs/proofs/msmarco_v2_real_parity_rebuild_completion.json >/dev/null
+python3 -m json.tool docs/proofs/msmarco_v2_real_proof_rebuild_done.json >/dev/null
+python3 scripts/compare_msmarco_v2_real.py \
+  docs/proofs/msmarco_v2_real_proof.json \
+  docs/proofs/msmarco_v2_real_proof.json
 python3 -m pytest tests/test_client_field_encoder_smoke.py -q --tb=short
 ```
 
-If the Hugging Face dataset packaging changes, regenerate the artifact and keep
-the README counts tied to the new checked QA-cache artifact.
+If Hugging Face dataset packaging changes, regenerate the affected artifact and
+keep the README counts tied to the checked artifact.

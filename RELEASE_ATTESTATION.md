@@ -33,7 +33,8 @@ These gates define the public v1.0.0 release boundary.
 | Reference replay proof         | PASS     | docs/proofs/reference_replay_proof.json    |
 | HF ms_marco QA parity proof    | PASS     | docs/proofs/msmarco_full_parity_proof.json |
 | HF ms_marco QA replay proof    | PASS     | docs/proofs/msmarco_replay_proof.json      |
-| MS MARCO v2.1 full gamut       | NO CLAIM | 285k x 138M artifact absent                |
+| mteb/msmarco-v2 stream parity  | PASS     | docs/proofs/msmarco_v2_real_proof.json     |
+| MS MARCO retrieval quality     | NO CLAIM | parity artifact only; no ranking metric    |
 | Legacy BN254 pairing fixture   | PASS     | groth16_verification_proof.json            |
 | Real Groth16 circuit proof     | PASS     | docs/proofs/openencoder_real_groth16_circuit_manifest.json |
 | Release gate script            | PASS     | scripts/check_release_gates.py             |
@@ -55,7 +56,7 @@ OpenEncoder v1.0.0 claims:
 4. source-backed local answer recovery,
 5. legacy BN254 pairing fixture verification,
 6. a pinned real Groth16 reference circuit proof packet,
-7. checked-in replay and QA-cache parity proof artifacts, and
+7. checked-in replay, QA-cache parity, and `mteb/msmarco-v2` stream parity proof artifacts, and
 8. a single-file OpenEncoder Zig endpoint artifact for release smoke checks.
 
 OpenEncoder v1.0.0 does not claim:
@@ -83,8 +84,9 @@ Do not replace measured values with projections. Projections belong outside the 
 +------------------------------+---------------------------------------------+
 | Surface                      | Release Claim                               |
 +------------------------------+---------------------------------------------+
-| MS MARCO v2.1 full gamut     | NOT CLAIMED for OpenEncoder+Gravitas        |
-| Required full-gamut scale    | 285,328 queries x 138,364,198 records       |
+| mteb/msmarco-v2 stream parity| PASS for OpenEncoder+Gravitas parity only   |
+| Stream scale                 | 285,328 queries + 138,364,198 passages      |
+| MS MARCO retrieval quality   | NOT CLAIMED                                 |
 | HF microsoft/ms_marco v2.1   | QA-cache encode/decode parity only          |
 | QA-cache splits              | train, validation, test                     |
 +------------------------------+---------------------------------------------+

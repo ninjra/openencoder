@@ -1,0 +1,55 @@
+{
+  "benchmark_kind": "encode_decode_parity_only",
+  "chains": {
+    "decode_chain_sha256": "10a285505903a23561e419dafdc31634c346094a612f411e74e6beb30f519d53",
+    "field_id_chain_sha256": "c824ea64aff7f2293efec378160d2720808fc6c623a783f9d11444d2edd4f554",
+    "receipt_chain_sha256": "619fbeb1dafb409656cf164a8faea6f730aceee0819463c9e972a77d72c1dcea",
+    "signal_chain_sha256": "44a7d760326fe08281d4b25ed1fc9934f280c6d9d00051e889c6d6e6e924b610",
+    "source_chain_sha256": "281dabd6e19dd7c383dbba3ad71e2b7a49aaa5f63c120c7bf601a202c65f185e",
+    "typed_atom_chain_sha256": "64676da6e20e26c1ce83ee58847bfdd6c6b598cd496e837134500a39ffc6ba38"
+  },
+  "dataset": {
+    "dataset_id": "mteb/msmarco-v2",
+    "encoded_decoded_source_count": 138649526,
+    "passage_count": 138364198,
+    "query_count": 285328,
+    "revision": null,
+    "selection_rule": "deterministic first 285328 queries and first 138364198 passages in streaming mode (requested_query_limit=285328, requested_passage_limit=138364198)",
+    "source": "huggingface",
+    "streaming": true
+  },
+  "machine": {
+    "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+    "hostname_redacted": true,
+    "kernel": "6.17.0-20-generic",
+    "logical_threads": 32,
+    "os": "Ubuntu 24.04.4 LTS",
+    "ram_gib": 124.4
+  },
+  "metrics": {
+    "canonical_hash_mismatches": 0,
+    "elapsed_seconds": 96189.948,
+    "encode_decode_accuracy_percent": 100.0,
+    "exceptions": 0,
+    "field_id_replay_mismatches": 0,
+    "field_receipt_replay_mismatches": 0,
+    "signal_replay_mismatches": 0,
+    "text_hash_mismatches": 0,
+    "throughput_sources_per_second": 1441.41,
+    "typed_atom_hash_mismatches": 0
+  },
+  "not_a_semantic_retrieval_benchmark": true,
+  "openencoder": {
+    "binary_sha256": "97802ae390bac1fc493b6b5ee2c2799f95b04f5354a8c09fc3ac93aa04a3e8a2",
+    "calc_hash": "openencoder-oezk1-signed-int16-typed-atom-v1:435a75ec34ac9d548ebc94d9a665e905",
+    "git_commit": "afb6f2d00df2fb956ecd0f8a6c63d3e796007e6b",
+    "python_version": "3.12.3",
+    "recipe_id": "openencoder-oezk1-signed-int16-typed-atom-v1"
+  },
+  "proof": {
+    "artifact_path": "docs/proofs/msmarco_v2_real_proof.json",
+    "artifact_sha256": "d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202",
+    "proof_passed": true
+  },
+  "schema_version": "openencoder-msmarco-v2-real-parity-proof-v1"
+}

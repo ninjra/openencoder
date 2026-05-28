@@ -1,0 +1,92 @@
+{
+  "artifact_checks": [
+    {
+      "expected_file_sha256": "38782428a27e12e2ef3da5ccd137f90d8e270546e68bec1a87a520633dc24932",
+      "file_sha256": "38782428a27e12e2ef3da5ccd137f90d8e270546e68bec1a87a520633dc24932",
+      "file_sha256_matches": true,
+      "path": "docs/proofs/msmarco_v2_real_proof.json",
+      "proof_path": "proof.proof_passed",
+      "proof_value": true,
+      "proof_value_matches": true
+    },
+    {
+      "expected_file_sha256": "a640232df9ae6400a54371be3aa41e9364c1365a2843a8f7c06722ea27cf9125",
+      "file_sha256": "a640232df9ae6400a54371be3aa41e9364c1365a2843a8f7c06722ea27cf9125",
+      "file_sha256_matches": true,
+      "path": "docs/proofs/msmarco_v2_real_public_handoff.json",
+      "proof_path": "results.proof_passed",
+      "proof_value": true,
+      "proof_value_matches": true
+    },
+    {
+      "expected_file_sha256": "92e8a052b5bb0c7fc1246c26c947af52796731c9d65d4344c7e7a0f37cf951b7",
+      "file_sha256": "92e8a052b5bb0c7fc1246c26c947af52796731c9d65d4344c7e7a0f37cf951b7",
+      "file_sha256_matches": true,
+      "path": "docs/proofs/msmarco_full_parity_gravitas_submission.json",
+      "proof_path": "fidelity.proof_passed",
+      "proof_value": true,
+      "proof_value_matches": true
+    }
+  ],
+  "artifact_payload_sha256": "a4d0aa6f6729ac9c2a6a94ff9789e89fee22eccc89c50f46ea12367455c748aa",
+  "blocker_count": 0,
+  "blockers": [],
+  "claim_boundary": "OpenEncoder MS MARCO public wording must claim stream encode/decode parity only and must not revive stale pre-proof wording after the checked mteb/msmarco-v2 artifact.",
+  "forbidden_claim_fragment_sha256": [
+    "5b5c19fad93c2a012441fc549639da997f0954bd95329840da236490076d97e5",
+    "b96e069a5310954088e085fcbcfed6980984c57b89ea3240551fd14c92fe09d1",
+    "56946f80dd4d13b94050c93e28cdb09ccc943e19b0a8c5eb65f3d380f29ae4f8",
+    "9e19e45ca4f026ec5b641ad0b10291dd29b8a5e49f7711e16f0fdbdd17802a42",
+    "106480b59cfb41fadeb73d529171b99bdc45708d5db92800b19ae487d406b14e",
+    "aac224bffa89c1d8fcba3a65b5e90e5dcffebb45e7a0c96d1d9e8e21f12a384d",
+    "869508ea88006d2478f94f77ab993f65df3e0ef0032c18fef4a08078702c517d",
+    "95421bc4fd515603df0f0f98662fb5f6bd963fcad9c95ea01901a971e36f69b5"
+  ],
+  "proof_passed": true,
+  "public_claim_files": [
+    {
+      "path": "README.md",
+      "sha256": "7bd2055a4501070f0c601f8a301113b7a716cdd39cd3308b2a52b0ba529cbd8a",
+      "size_bytes": 18874
+    },
+    {
+      "path": "PUBLIC_CLAIMS.md",
+      "sha256": "a5ecae8943f811da99184716faa09a0c0952ee79489ef6f0054f7ba9c6fbca36",
+      "size_bytes": 5857
+    },
+    {
+      "path": "RELEASE_ATTESTATION.md",
+      "sha256": "96894923ef34ed06294d5ab5b521bee9de5a202bf0b0b3c2a654a647b88d1d5c",
+      "size_bytes": 5742
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "2dde33f972cfd4299611a8df95823849cbe8ea62b7e9fa4152776fe11c1d29ca",
+      "size_bytes": 791
+    },
+    {
+      "path": "docs/BENCHMARKS.md",
+      "sha256": "c574d9f13f92bab71792c834f49a2537bc8fe3d675fbfa3dbadbd03c106fce33",
+      "size_bytes": 22774
+    },
+    {
+      "path": "docs/MSMARCO_REPRODUCTION.md",
+      "sha256": "18f748b218ee00c3e7a242dbcce7c83ab5ef84b0c66541fbffde3535ab5e9215",
+      "size_bytes": 9987
+    },
+    {
+      "path": "docs/RELEASE_CHECKLIST.md",
+      "sha256": "7a6e3331fc7c95aedec50281992e0e4ae0ae8cb620e4fce01621e124b051a58e",
+      "size_bytes": 3601
+    }
+  ],
+  "required_claim_fragments": [
+    "OpenEncoder+Gravitas        | encode/decode parity only; retrieval not claimed",
+    "mteb/msmarco-v2 stream parity| 138.6M srcs | PASS",
+    "mteb/msmarco-v2 stream parity  | PASS",
+    "OpenEncoder MS MARCO retrieval | not claimed; no semantic ranking metric",
+    "docs/proofs/msmarco_v2_real_proof.json",
+    "d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202"
+  ],
+  "schema_version": "openencoder-public-claims-verification-proof-v1"
+}

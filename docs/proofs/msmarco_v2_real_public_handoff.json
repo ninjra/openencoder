@@ -1,0 +1,86 @@
+{
+  "artifact_set": {
+    "completion": {
+      "artifact_sha256": "d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202",
+      "file_sha256": "a8e12eddb382467e460eeb1fd0055849b4c4ca7f01eba36cc7e215fe5939b4d8",
+      "path": "docs/proofs/msmarco_v2_real_parity_rebuild_completion.json",
+      "size_bytes": 1332
+    },
+    "completion_done": {
+      "file_sha256": "183e36579716754df97995548aa194429973bc3750735191b7b58a7e4bdb6575",
+      "path": "docs/proofs/msmarco_v2_real_proof_rebuild_done.json",
+      "size_bytes": 445
+    },
+    "proof": {
+      "artifact_sha256": "d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202",
+      "file_sha256": "38782428a27e12e2ef3da5ccd137f90d8e270546e68bec1a87a520633dc24932",
+      "path": "docs/proofs/msmarco_v2_real_proof.json",
+      "size_bytes": 2336
+    },
+    "runtime_log": {
+      "embedded_in_repo": false,
+      "file_sha256": "656107eaa6180824b0018c2fdfa8623d07013e770a10e748bdddbb4cfb34ff45",
+      "note": "Large runtime log is transport evidence from the rebuild host and is not checked into the public repository.",
+      "path": "docs/proofs/msmarco_v2_real_proof_rebuild.log",
+      "size_bytes": 81821268
+    }
+  },
+  "dataset": {
+    "dataset_id": "mteb/msmarco-v2",
+    "encoded_decoded_source_count": 138649526,
+    "passage_count": 138364198,
+    "passage_limit": 138364198,
+    "query_count": 285328,
+    "query_limit": 285328,
+    "selection_rule": "deterministic first 285328 queries and first 138364198 passages in streaming mode (requested_query_limit=285328, requested_passage_limit=138364198)"
+  },
+  "interop": {
+    "compare_fields": [
+      "schema_version",
+      "benchmark_kind",
+      "dataset.dataset_id",
+      "dataset.query_count",
+      "dataset.passage_count",
+      "dataset.encoded_decoded_source_count",
+      "proof.artifact_sha256",
+      "proof.proof_passed",
+      "metrics.canonical_hash_mismatches",
+      "metrics.text_hash_mismatches",
+      "metrics.typed_atom_hash_mismatches",
+      "metrics.signal_replay_mismatches",
+      "metrics.field_receipt_replay_mismatches",
+      "metrics.field_id_replay_mismatches",
+      "metrics.exceptions"
+    ],
+    "comparison_script": "python3 scripts/compare_msmarco_v2_real.py docs/proofs/msmarco_v2_real_proof.json <other_repo>/docs/proofs/msmarco_v2_real_proof.json",
+    "comparison_script_named_args": "python3 scripts/compare_msmarco_v2_real.py --left docs/proofs/msmarco_v2_real_proof.json --right <other_repo>/docs/proofs/msmarco_v2_real_proof.json"
+  },
+  "reproducibility": {
+    "command": "python3 scripts/prove_msmarco_v2_real_parity.py --query-limit 285328 --passage-limit 138364198 --output docs/proofs/msmarco_v2_real_proof.json",
+    "required_input": "Internet access to Hugging Face to resolve mteb/msmarco-v2",
+    "runtime_notes": [
+      "This is a streaming run over Hugging Face data, not a local cached run.",
+      "The proof artifact does not include raw corpus/query text or local source paths.",
+      "proof.artifact_sha256 is a self-referential canonical JSON digest.",
+      "artifact file bytes are tracked with file_sha256 for transport checks.",
+      "This is encode/decode parity evidence, not semantic retrieval quality evidence."
+    ]
+  },
+  "results": {
+    "canonical_hash_mismatches": 0,
+    "elapsed_seconds": 96189.948,
+    "encode_decode_accuracy_percent": 100.0,
+    "ended_at_iso": "2026-05-27T21:34:42Z",
+    "exceptions": 0,
+    "field_id_replay_mismatches": 0,
+    "field_receipt_replay_mismatches": 0,
+    "proof_passed": true,
+    "runtime_seconds": 95970.298,
+    "signal_replay_mismatches": 0,
+    "text_hash_mismatches": 0,
+    "throughput_sources_per_second": 1441.41,
+    "typed_atom_hash_mismatches": 0,
+    "watched_pid": 3368955
+  },
+  "schema_version": "openencoder-msmarco-v2-repro-handoff-v1"
+}

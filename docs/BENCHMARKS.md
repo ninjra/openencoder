@@ -1,8 +1,8 @@
 # OpenEncoder Benchmarks
 
 OpenEncoder and Ionizer are encoder lanes. Gravitas is the engine in both
-lanes. This file reports artifact-backed surfaces and keeps the MS MARCO
-full-gamut boundary separate from the Hugging Face QA-cache parity surface.
+lanes. This file reports artifact-backed surfaces and keeps MS MARCO
+encode/decode parity separate from semantic retrieval quality.
 
 ## Current Dashboard
 
@@ -11,13 +11,13 @@ OPENENCODER BENCHMARK DASHBOARD
 Run ID:      openencoder-gravitas-public-dashboard
 Commit:      checked-in artifact
 Dataset:     Legal-MLEB full aggregate + MS MARCO surface boundaries
-Generated:   2026-05-25
+Generated:   2026-05-28
 
 +----+------------------------------+----------------+-------------+------------------------------------------------+
 | #  | Gate                         | Required       | Observed    | Artifact                                       |
 +----+------------------------------+----------------+-------------+------------------------------------------------+
 | 01 | Encode determinism           | 100% replay    | PASS        | docs/proofs/reference_replay_proof.json        |
-| 02 | MS MARCO v2.1 full gamut     | 285k x 138M    | NOT CLAIMED | pending exact full-gamut artifact              |
+| 02 | mteb/msmarco-v2 stream parity| 138.6M sources | PASS        | docs/proofs/msmarco_v2_real_proof.json         |
 | 03 | HF ms_marco v2.1 QA parity   | named cache    | PASS        | docs/proofs/msmarco_full_parity_proof.json     |
 | 04 | Ledger hash-chain validity   | 100% valid     | PASS        | docs/proofs/msmarco_replay_proof.json          |
 | 05 | Local answer recovery        | all QA rows    | PASS        | docs/proofs/msmarco_replay_proof.json          |
@@ -31,7 +31,7 @@ Generated:   2026-05-25
 
 OPENENCODER STANDALONE RETRIEVAL CLAIM: NOT CLAIMED
 ENCRYPTION PRODUCT: NOT CLAIMED
-MS MARCO FULL-GAMUT CLAIM: ONLY 285,328 queries x 138,364,198 records.
+MS MARCO STREAM CLAIM: encode/decode parity over 285,328 queries + 138,364,198 passages.
 HF QA CACHE CLAIM: microsoft/ms_marco v2.1 train/validation/test parity only.
 ```
 
@@ -112,7 +112,8 @@ OpenEncoder.com SHA-256:
 +----------------------------------+---------------------------------------------+
 | OpenEncoder+Gravitas comparator  | PASS                                        |
 | OpenEncoder zero-egress lane     | PASS                                        |
-| OpenEncoder+Gravitas production  | NOT CLAIMED                                 |
+| OpenEncoder+Gravitas stream parity| PASS                                       |
+| OpenEncoder+Gravitas retrieval production | NOT CLAIMED                         |
 | Ionizer+Gravitas MLEB receipt    | PASS, 1.00000000                            |
 | Python deterministic authority   | false                                       |
 | GPU / accelerator requirement    | 0 GB                                        |
@@ -167,7 +168,7 @@ OPENENCODER RELEASE VERIFICATION
 | Legacy BN254 verification             | pairings valid         | PASS    | 11.720s  |
 | Groth16 positive fixture              | 1/1 passed             | PASS    | -        |
 | Groth16 negative tamper fixture       | pairing_product_not_one| PASS    | -        |
-| MS MARCO v2.1 full gamut              | 285k x 138M            | NOCLAIM | -        |
+| mteb/msmarco-v2 stream parity         | 138.6M encoded items   | PASS    | 96,189.948s |
 | HF ms_marco v2.1 QA cache             | 11.1M encoded items    | PASS    | -        |
 +---------------------------------------+------------------------+---------+----------+
 ```
@@ -178,18 +179,20 @@ Groth16 tamper blocker signature:
 `d2b01ed9819d4158aec16b80515cddfbbfc09298b218868b71a7a8bdadfa78ab`
 
 ```text
-MS MARCO FULL-GAMUT BOUNDARY
-Status: OPENENCODER FULL-SCALE NOT CLAIMED
-Required surface: 285,328 queries x 138,364,198 records
+MS MARCO STREAM PARITY BOUNDARY
+Status: OPENENCODER ENCODE/DECODE PARITY PASS
+Surface: 285,328 queries + 138,364,198 passages
 
 +-------------------------------+---------------------------+---------------------------+
 | Metric                        | Canonical required        | OpenEncoder public claim  |
 +-------------------------------+---------------------------+---------------------------+
-| query_count                   | 285,328                   | NOT CLAIMED               |
-| record_count                  | 138,364,198               | NOT CLAIMED               |
+| query_count                   | 285,328                   | PASS                      |
+| passage_count                 | 138,364,198               | PASS                      |
+| encoded_decoded_source_count  | 138,649,526               | PASS                      |
 | hf_qa_cache_equivalent        | false                     | false                     |
-| public_full_scale_artifact    | required                  | pending                   |
-| Status                        | REQUIRED                  | NOT CLAIMED               |
+| public_stream_artifact        | required                  | docs/proofs/msmarco_v2_real_proof.json |
+| semantic_retrieval_claim      | false                     | false                     |
+| Status                        | REQUIRED                  | PASS, parity only         |
 +-------------------------------+---------------------------+---------------------------+
 ```
 
@@ -199,8 +202,9 @@ MS MARCO SURFACE BREAKDOWN
 +----------------------------+---------------------+-----------------------------+
 | Surface                    | Rows                | Status                      |
 +----------------------------+---------------------+-----------------------------+
-| full-gamut corpus          | 138,364,198 records | required, not claimed       |
-| full-gamut queries         | 285,328 queries     | required, not claimed       |
+| mteb/msmarco-v2 passages   | 138,364,198 records | parity passed               |
+| mteb/msmarco-v2 queries    | 285,328 queries     | parity passed               |
+| mteb/msmarco-v2 sources    | 138,649,526 items   | parity passed               |
 | HF QA cache rows           | 1,010,916 rows      | parity only                 |
 | HF QA cache passages       | 10,087,677 passages | parity only                 |
 | HF QA cache encoded items  | 11,098,593 items    | parity only                 |
@@ -208,7 +212,8 @@ MS MARCO SURFACE BREAKDOWN
 ```
 
 The Hugging Face QA cache is a named encode/decode parity surface. It is not
-the Ionizer full-gamut MS MARCO run.
+the `mteb/msmarco-v2` stream proof and neither surface is semantic retrieval
+quality evidence.
 
 Proof hashes:
 
@@ -216,13 +221,18 @@ Proof hashes:
 +--------------------------------------+------------------------------------------------------------------+
 | Hash                                 | Value                                                            |
 +--------------------------------------+------------------------------------------------------------------+
-| checked_in_full_parity_artifact_sha  | a62e524eaf6693a68342e5b2157e9c86cdbdddc649f9590de3e147333c65ae9b |
-| final_sandbox_reported_proof_hash    | 782fa53229be93698c7d916f8028515e8ea8e2d507ed86d55d33863490decf40 |
+| msmarco_v2_real_payload_sha256       | d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202 |
+| msmarco_v2_real_file_sha256          | 38782428a27e12e2ef3da5ccd137f90d8e270546e68bec1a87a520633dc24932 |
+| msmarco_v2_public_handoff_sha256     | a640232df9ae6400a54371be3aa41e9364c1365a2843a8f7c06722ea27cf9125 |
+| msmarco_full_parity_file_sha256      | fd4d778b065f62ae5b7f60e40bd0e705813b47684c0471a902940181bda73e1c |
+| gravitas_submission_file_sha256      | 92e8a052b5bb0c7fc1246c26c947af52796731c9d65d4344c7e7a0f37cf951b7 |
+| gravitas_reported_artifact_sha256    | 16aadaefb8d139cd32a2855c2c810c596f30afb1634aa2cc00b5e35dbc17a6aa |
 +--------------------------------------+------------------------------------------------------------------+
 ```
 
-OpenEncoder MS MARCO full-gamut throughput is not claimed until the exact
-285,328 x 138,364,198 run exists.
+OpenEncoder MS MARCO retrieval throughput, ranking quality, and leaderboard
+standing remain unclaimed. The checked stream proof is encode/decode parity
+only.
 
 ## Additional Local System Reference Point
 
@@ -292,8 +302,12 @@ Each benchmark update should include checked-in machine-readable artifacts under
 | Artifact                                 | Required Contents                                            |
 +------------------------------------------+--------------------------------------------------------------+
 | reference_replay_proof.json              | encode/change/decode deterministic replay receipt            |
-| msmarco_replay_proof.json                | HF QA cache replay; not full-gamut MS MARCO authority        |
-| msmarco_full_parity_proof.json           | HF QA cache parity; not full-gamut MS MARCO authority        |
+| msmarco_replay_proof.json                | HF QA cache replay; not retrieval-quality authority          |
+| msmarco_full_parity_proof.json           | HF QA cache parity; not retrieval-quality authority          |
+| msmarco_full_parity_gravitas_submission.json | Gravitas submission summary for local-cache parity       |
+| msmarco_v2_real_proof.json               | mteb/msmarco-v2 stream parity proof                         |
+| msmarco_v2_real_public_handoff.json      | reproducibility and transport hashes for stream proof       |
+| public_claims_verification_proof.json    | stale-claim rejection proof for public wording              |
 | requirements_validation.json             | requirements command JSON validation output                  |
 | groth16_verification_proof.json          | BN254 Groth16 positive/tampered verification proof           |
 | bin/OpenEncoder.com                      | self-contained Zig endpoint                                  |
@@ -303,20 +317,23 @@ Each benchmark update should include checked-in machine-readable artifacts under
 
 Do not add a metric unless the artifact or named test exists and can be reproduced by the documented command.
 
-## MS MARCO v2.1 Surface Boundary
+## MS MARCO v2 Surface Boundary
 
-Only the full-gamut surface is reportable as MS MARCO v2.1 production evidence. The
-Hugging Face QA cache remains reportable only as a named encode/decode parity
-surface.
+Only checked artifacts are reportable. The `mteb/msmarco-v2` stream artifact
+is reportable as encode/decode parity over the declared stream counts. The
+Hugging Face QA cache remains reportable only as a named local-cache
+encode/decode parity surface.
 
 ```text
 +----------------------------+----------------------------------------------+
 | Field                      | Value                                        |
 +----------------------------+----------------------------------------------+
-| benchmark_full_gamut       | MS MARCO v2.1                                |
-| canonical_query_count      | 285,328                                      |
-| canonical_record_count     | 138,364,198                                  |
-| openencoder_gravitas_claim | NOT CLAIMED                                  |
+| benchmark_stream           | mteb/msmarco-v2                              |
+| stream_query_count         | 285,328                                      |
+| stream_passage_count       | 138,364,198                                  |
+| stream_encoded_sources     | 138,649,526                                  |
+| openencoder_gravitas_claim | PASS, encode/decode parity only              |
+| semantic_retrieval_claim   | NOT CLAIMED                                  |
 | ionizer_gravitas_baseline  | receipt-backed baseline exists              |
 | hf_qa_cache_role           | parity only, separate named surface          |
 +----------------------------+----------------------------------------------+

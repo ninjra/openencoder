@@ -578,6 +578,78 @@ def test_msmarco_full_parity_proof_artifact_has_required_release_fields() -> Non
     assert artifact["receipt_chain_sha256"] in readme
 
 
+def test_msmarco_v2_real_parity_handoff_has_required_release_fields() -> None:
+    root = SCRIPT.parent
+    proof_script = root / "scripts" / "prove_msmarco_v2_real_parity.py"
+    compare_script = root / "scripts" / "compare_msmarco_v2_real.py"
+    script_text = proof_script.read_text(encoding="utf-8")
+    artifact_path = root / "docs" / "proofs" / "msmarco_v2_real_proof.json"
+    handoff_path = root / "docs" / "proofs" / "msmarco_v2_real_public_handoff.json"
+    gravitas_path = root / "docs" / "proofs" / "msmarco_full_parity_gravitas_submission.json"
+    artifact = json.loads(artifact_path.read_text(encoding="utf-8"))
+    handoff = json.loads(handoff_path.read_text(encoding="utf-8"))
+    gravitas = json.loads(gravitas_path.read_text(encoding="utf-8"))
+    readme = (root / "README.md").read_text(encoding="utf-8")
+    artifact_file_sha256 = hashlib.sha256(artifact_path.read_bytes()).hexdigest()
+    handoff_file_sha256 = hashlib.sha256(handoff_path.read_bytes()).hexdigest()
+
+    assert "load_dataset" in script_text
+    assert "streaming=True" in script_text
+    assert "encode_source_item" in script_text
+    assert proof_script.exists()
+    assert compare_script.exists()
+
+    assert artifact["schema_version"] == "openencoder-msmarco-v2-real-parity-proof-v1"
+    assert artifact["benchmark_kind"] == "encode_decode_parity_only"
+    assert artifact["not_a_semantic_retrieval_benchmark"] is True
+    assert artifact["dataset"]["dataset_id"] == "mteb/msmarco-v2"
+    assert artifact["dataset"]["query_count"] == 285328
+    assert artifact["dataset"]["passage_count"] == 138364198
+    assert artifact["dataset"]["encoded_decoded_source_count"] == 138649526
+    assert artifact["metrics"]["encode_decode_accuracy_percent"] == 100.0
+    assert artifact["metrics"]["text_hash_mismatches"] == 0
+    assert artifact["metrics"]["canonical_hash_mismatches"] == 0
+    assert artifact["metrics"]["typed_atom_hash_mismatches"] == 0
+    assert artifact["metrics"]["signal_replay_mismatches"] == 0
+    assert artifact["metrics"]["field_receipt_replay_mismatches"] == 0
+    assert artifact["metrics"]["field_id_replay_mismatches"] == 0
+    assert artifact["metrics"]["exceptions"] == 0
+    assert artifact["proof"]["proof_passed"] is True
+    assert artifact["proof"]["artifact_sha256"] == "d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202"
+
+    assert handoff["schema_version"] == "openencoder-msmarco-v2-repro-handoff-v1"
+    assert handoff["artifact_set"]["proof"]["file_sha256"] == artifact_file_sha256
+    assert handoff["results"]["proof_passed"] is True
+    assert gravitas["schema_version"] == "openencoder-msmarco-full-parity-gravitas-v1"
+    assert gravitas["submitted_to"] == "gravitas"
+    assert gravitas["not_a_semantic_retrieval_benchmark"] is True
+    assert gravitas["fidelity"]["encoded_source_count"] == 11098593
+    assert artifact["proof"]["artifact_sha256"] in readme
+    assert artifact_file_sha256 in readme
+    assert handoff_file_sha256 in readme
+
+
+def test_public_claims_verification_proof_blocks_stale_msmarco_wording() -> None:
+    root = SCRIPT.parent
+    proof_script = root / "scripts" / "prove_public_claims.py"
+    proof_artifact = root / "docs" / "proofs" / "public_claims_verification_proof.json"
+    script_text = proof_script.read_text(encoding="utf-8")
+    artifact = json.loads(proof_artifact.read_text(encoding="utf-8"))
+
+    assert proof_script.exists()
+    assert "FORBIDDEN_CLAIM_FRAGMENTS" in script_text
+    assert artifact["schema_version"] == "openencoder-public-claims-verification-proof-v1"
+    assert artifact["proof_passed"] is True
+    assert artifact["blocker_count"] == 0
+    assert artifact["blockers"] == []
+    forbidden_hashes = set(artifact["forbidden_claim_fragment_sha256"])
+    assert hashlib.sha256(("NOT CLAIMED until exact " + "full" + "-gamut run").encode("utf-8")).hexdigest() in forbidden_hashes
+    assert hashlib.sha256(("OpenEncoder+Gravitas " + "production").encode("utf-8")).hexdigest() in forbidden_hashes
+    scanned_paths = {entry["path"] for entry in artifact["public_claim_files"]}
+    assert "README.md" in scanned_paths
+    assert "docs/BENCHMARKS.md" in scanned_paths
+
+
 def test_msmarco_reproduction_docs_reference_public_dataset_and_artifact() -> None:
     root = SCRIPT.parent
     readme = (root / "README.md").read_text(encoding="utf-8")
@@ -589,6 +661,9 @@ def test_msmarco_reproduction_docs_reference_public_dataset_and_artifact() -> No
     assert "https://arxiv.org/abs/1611.09268" in docs
     assert "scripts/prove_msmarco_full_parity.py" in reproduction
     assert "docs/proofs/msmarco_full_parity_proof.json" in reproduction
+    assert "scripts/prove_msmarco_v2_real_parity.py" in reproduction
+    assert "docs/proofs/msmarco_v2_real_proof.json" in reproduction
+    assert "docs/proofs/msmarco_full_parity_gravitas_submission.json" in reproduction
     assert "/home/" + "private-user" not in docs
 
 

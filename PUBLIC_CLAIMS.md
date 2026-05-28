@@ -75,15 +75,18 @@ surfaces named and separated.
 +--------------------------------+---------------------------------------------+
 | Legal-MLEB OpenEncoder+Gravitas| comparator lane, not OpenEncoder production readiness |
 | Legal-MLEB Ionizer+Gravitas    | commercial receipt-backed lane              |
-| MS MARCO v2.1 full gamut       | 285,328 queries x 138,364,198 records only  |
-| OpenEncoder MS MARCO full gamut| NOT CLAIMED until exact artifact exists     |
+| mteb/msmarco-v2 full stream    | encode/decode parity over 285,328 queries and 138,364,198 passages |
+| OpenEncoder MS MARCO retrieval | not claimed; no semantic ranking metric     |
 | HF ms_marco v2.1 QA cache      | encode/decode parity only                   |
 +--------------------------------+---------------------------------------------+
 ```
 
-The checked-in Hugging Face `microsoft/ms_marco` `v2.1` proof is a local
-encode/decode parity proof over the QA cache. It is not a semantic retrieval
-benchmark and not the full-gamut MS MARCO v2.1 run.
+The checked-in `mteb/msmarco-v2` proof is a streaming encode/decode parity
+proof over `285,328` query rows and `138,364,198` passage rows. The checked-in
+Hugging Face `microsoft/ms_marco` `v2.1` proof is a separate local
+encode/decode parity proof over the QA cache. Neither artifact is a semantic
+retrieval benchmark, ranking-quality benchmark, field-service quality claim, or
+official leaderboard result.
 
 Use projection language only when the value is clearly marked as a projection and kept outside the release evidence board.
 

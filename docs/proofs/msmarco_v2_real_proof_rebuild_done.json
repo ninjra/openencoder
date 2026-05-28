@@ -1,0 +1,10 @@
+{
+  "finished_at": "2026-05-27T15:38:46-0600",
+  "rebuild_pid": 3368955,
+  "proof_passed": true,
+  "elapsed_seconds": 96189.948,
+  "query_count": 285328,
+  "passage_count": 138364198,
+  "selection_rule": "deterministic first 285328 queries and first 138364198 passages in streaming mode (requested_query_limit=285328, requested_passage_limit=138364198)",
+  "artifact_sha256": "d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202"
+}

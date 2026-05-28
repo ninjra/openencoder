@@ -1,0 +1,37 @@
+{
+  "artifact_exists": true,
+  "artifact_path": "docs/proofs/msmarco_v2_real_proof.json",
+  "artifact_sha256": "d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202",
+  "artifact_size_bytes": 2336,
+  "dataset": {
+    "dataset_id": "mteb/msmarco-v2",
+    "encoded_decoded_source_count": 138649526,
+    "passage_count": 138364198,
+    "query_count": 285328,
+    "revision": null,
+    "selection_rule": "deterministic first 285328 queries and first 138364198 passages in streaming mode (requested_query_limit=285328, requested_passage_limit=138364198)",
+    "source": "huggingface",
+    "streaming": true
+  },
+  "ended_at_epoch": 1779917682,
+  "ended_at_iso": "2026-05-27T21:34:42Z",
+  "metrics": {
+    "canonical_hash_mismatches": 0,
+    "elapsed_seconds": 96189.948,
+    "encode_decode_accuracy_percent": 100.0,
+    "exceptions": 0,
+    "field_id_replay_mismatches": 0,
+    "field_receipt_replay_mismatches": 0,
+    "signal_replay_mismatches": 0,
+    "text_hash_mismatches": 0,
+    "throughput_sources_per_second": 1441.41,
+    "typed_atom_hash_mismatches": 0
+  },
+  "proof": {
+    "artifact_path": "docs/proofs/msmarco_v2_real_proof.json",
+    "artifact_sha256": "d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202",
+    "proof_passed": true
+  },
+  "runtime_seconds": 95970.298,
+  "watched_pid": 3368955
+}

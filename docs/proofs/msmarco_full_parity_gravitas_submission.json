@@ -1,0 +1,81 @@
+{
+  "coverage": {
+    "all_corpus_rows_covered": true,
+    "all_queries_covered": true,
+    "all_requested_splits_covered": true,
+    "dataset_arrow_files_covered": 9,
+    "declared_rows_match_measured_rows": true
+  },
+  "dataset": {
+    "corpus_items": 10087677,
+    "dataset": "ms_marco",
+    "dataset_config": "v2.1",
+    "query_items": 1010916,
+    "requested_splits": [
+      "train",
+      "validation",
+      "test"
+    ]
+  },
+  "dataset_split_stats": {
+    "test": {
+      "arrow_files": 1,
+      "bytes": 405790024,
+      "encoded_sources": 1110035,
+      "passages": 1008943,
+      "queries": 101092,
+      "rows": 101092
+    },
+    "train": {
+      "arrow_files": 7,
+      "bytes": 3463589872,
+      "encoded_sources": 8878480,
+      "passages": 8069749,
+      "queries": 808731,
+      "rows": 808731
+    },
+    "validation": {
+      "arrow_files": 1,
+      "bytes": 413863848,
+      "encoded_sources": 1110078,
+      "passages": 1008985,
+      "queries": 101093,
+      "rows": 101093
+    }
+  },
+  "fidelity": {
+    "decode_source_count": 11098593,
+    "encode_decode_accuracy_percent": 100.0,
+    "encoded_source_count": 11098593,
+    "fidelity_loss_count": 0,
+    "proof_passed": true
+  },
+  "io_metrics": {
+    "artifacts": {
+      "artifact_path": "docs/proofs/msmarco_full_parity_proof.json",
+      "artifact_sha256": "16aadaefb8d139cd32a2855c2c810c596f30afb1634aa2cc00b5e35dbc17a6aa"
+    },
+    "cache_bytes": {
+      "local_msmarco_arrow_cache_bytes": 4283243744,
+      "local_msmarco_arrow_cache_gib": 3.989082
+    },
+    "elapsed_seconds": 7129.019,
+    "processing_throughput_bytes_per_sec": 600818.113,
+    "processing_throughput_encoded_sources_per_sec": 1556.8191,
+    "processing_throughput_passages_per_sec": 1415.0161,
+    "processing_throughput_queries_per_sec": 141.803,
+    "processing_throughput_raw_passage_slots_per_sec": 1415.0161,
+    "processing_throughput_rows_per_sec": 141.803
+  },
+  "not_a_semantic_retrieval_benchmark": true,
+  "proof_chain_hashes": {
+    "decode_chain_sha256": "a64c858d59b4b8239f6a45da5d695b3b2850261dc6d78922dc1a93d0267266cc",
+    "receipt_chain_sha256": "613c945e05138473ca4d6ad8eca15033792e1055a9360edf9f9bf2bd19e9e46c",
+    "signal_chain_sha256": "1368394b5b4e8fc66f891d4c8add014e792d55a8fc5517a713c72177fcd7010c",
+    "source_chain_sha256": "c493488583133dbaf89a56dd119cb5d237a74e36d1a8721e430f8713fde48bd2"
+  },
+  "schema_version": "openencoder-msmarco-full-parity-gravitas-v1",
+  "submission_intent": "Full local-cache encode/decode parity proof for all MS MARCO v2.1 rows and corpus/query text items",
+  "submitted_to": "gravitas",
+  "targeting": "all corpus and all queries"
+}
