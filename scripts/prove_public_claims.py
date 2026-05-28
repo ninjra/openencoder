@@ -46,13 +46,16 @@ FORBIDDEN_CLAIM_FRAGMENTS = [
 ]
 
 REQUIRED_CLAIM_FRAGMENTS = [
-    "| Benchmark            | Lane                 | Status                 | Scale",
-    "| Legal-MLEB           | OpenEncoder+Gravitas | PASS comparator        | 2,535 q; 7,635 corpus; 2,580 qrels",
-    "| Legal-MLEB           | Ionizer+Gravitas     | PASS fullbar           | 2,535 q; 7,635 corpus; 2,580 qrels",
-    "| MS MARCO v2 passage  | Ionizer+Gravitas     | PASS world fullbar     | 285,328 q; 138,364,198 records; 285,328,000 rank entries",
-    "| MS MARCO stream      | OpenEncoder+Gravitas | PASS parity            | 285,328 q + 138,364,198 passages = 138,649,526 sources",
-    "| MS MARCO local cache | OpenEncoder+Gravitas | PASS parity submission | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources",
-    "MSSQL fullbar_world_metric_receipts; commit 5bb633581468eb66",
+    "| Benchmark | OpenEncoder+Gravitas | Ionizer+Gravitas |",
+    "| Legal-MLEB | PASS comparator: 538 / 2,535 top-1; accuracy 0.21222880 | PASS fullbar: 2,535 / 2,535 top-1; accuracy 1.00000000 |",
+    "| MS MARCO | PASS parity: 138,649,526 stream sources; 100.000000%; 0 mismatches | PASS world fullbar: nDCG@10, MRR@10, R@100, R@1000, Success@5 all 1.00000000 |",
+    "| Surface | Scale | Key Metrics | Authority |",
+    "| Legal-MLEB OpenEncoder+Gravitas | 2,535 q; 7,635 corpus; 2,580 qrels",
+    "| Legal-MLEB Ionizer+Gravitas | 2,535 q; 7,635 corpus; 2,580 qrels",
+    "| MS MARCO Ionizer+Gravitas | 285,328 q; 138,364,198 records; 285,328,000 rank entries",
+    "| MS MARCO OpenEncoder+Gravitas stream | 285,328 q + 138,364,198 passages = 138,649,526 sources",
+    "| MS MARCO OpenEncoder+Gravitas local cache | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources",
+    "MSSQL `fullbar_world_metric_receipts`; commit 5bb633581468eb66",
     "mteb/msmarco-v2 stream parity| 138.6M srcs | PASS",
     "OpenEncoder+Gravitas MS MARCO  | parity proof PASS; Gravitas submission receipt",
     "OpenEncoder+Gravitas MS MARCO| PASS; stream parity proof + Gravitas receipt",

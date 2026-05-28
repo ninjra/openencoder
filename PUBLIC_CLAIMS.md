@@ -71,17 +71,18 @@ authority for Ionizer+Gravitas fullbar rows. Checked files are exports and
 rendered views, not benchmark authority. Keep benchmark surfaces named and
 separated.
 
-```text
-+----------------------+----------------------+------------------------+----------------------------------------------------------+--------------------------------------------------------------------------------------+--------------------------------------------------------------+
-| Benchmark            | Lane                 | Status                 | Scale                                                    | Metrics                                                                              | Authority / receipt                                          |
-+----------------------+----------------------+------------------------+----------------------------------------------------------+--------------------------------------------------------------------------------------+--------------------------------------------------------------+
-| Legal-MLEB           | OpenEncoder+Gravitas | PASS comparator        | 2,535 q; 7,635 corpus; 2,580 qrels                       | top1 538; acc 0.21222880; s@5 0.35936884; s@10 0.43313609; mrr@10 0.27680442         | Gravitas comparator receipt; result 1164272278d6529b         |
-| Legal-MLEB           | Ionizer+Gravitas     | PASS fullbar           | 2,535 q; 7,635 corpus; 2,580 qrels                       | top1 2,535; acc/s@5/s@10/mrr@10 all 1.00000000; 5.25 TB/s hotpath; 6.60 GB/s ingress | MSSQL-forward fullbar; packet 511edb2b8c0013e8               |
-| MS MARCO v2 passage  | Ionizer+Gravitas     | PASS world fullbar     | 285,328 q; 138,364,198 records; 285,328,000 rank entries | nDCG@10/MRR@10/R@100/R@1000/Success@5 all 1.00000000; P@5 0.20511972 ceiling         | MSSQL fullbar_world_metric_receipts; commit 5bb633581468eb66 |
-| MS MARCO stream      | OpenEncoder+Gravitas | PASS parity            | 285,328 q + 138,364,198 passages = 138,649,526 sources   | encode/decode 100.000000%; 0 mismatches; 96,189.948s; 1,441.41 sources/s             | Gravitas submission receipt d15c702867e001b7                 |
-| MS MARCO local cache | OpenEncoder+Gravitas | PASS parity submission | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources     | encode/decode 100.000000%; 0 fidelity loss; 7,129.019s; 1,556.8191 sources/s         | Gravitas local-cache receipt 16aadaefb8d139cd                |
-+----------------------+----------------------+------------------------+----------------------------------------------------------+--------------------------------------------------------------------------------------+--------------------------------------------------------------+
-```
+| Benchmark | OpenEncoder+Gravitas | Ionizer+Gravitas |
+|---|---|---|
+| Legal-MLEB | PASS comparator: 538 / 2,535 top-1; accuracy 0.21222880 | PASS fullbar: 2,535 / 2,535 top-1; accuracy 1.00000000 |
+| MS MARCO | PASS parity: 138,649,526 stream sources; 100.000000%; 0 mismatches | PASS world fullbar: nDCG@10, MRR@10, R@100, R@1000, Success@5 all 1.00000000 |
+
+| Surface | Scale | Key Metrics | Authority |
+|---|---:|---|---|
+| Legal-MLEB OpenEncoder+Gravitas | 2,535 q; 7,635 corpus; 2,580 qrels | top1 538; s@5 0.35936884; s@10 0.43313609; mrr@10 0.27680442 | Gravitas comparator receipt; result 1164272278d6529b |
+| Legal-MLEB Ionizer+Gravitas | 2,535 q; 7,635 corpus; 2,580 qrels | top1 2,535; acc/s@5/s@10/mrr@10 all 1.00000000; 5.25 TB/s hotpath; 6.60 GB/s ingress | MSSQL-forward fullbar; packet 511edb2b8c0013e8 |
+| MS MARCO Ionizer+Gravitas | 285,328 q; 138,364,198 records; 285,328,000 rank entries | nDCG@10/MRR@10/R@100/R@1000/Success@5 all 1.00000000; P@5 ceiling 0.20511972 | MSSQL `fullbar_world_metric_receipts`; commit 5bb633581468eb66 |
+| MS MARCO OpenEncoder+Gravitas stream | 285,328 q + 138,364,198 passages = 138,649,526 sources | encode/decode 100.000000%; 0 mismatches; 96,189.948s; 1,441.41 sources/s | Gravitas submission receipt d15c702867e001b7 |
+| MS MARCO OpenEncoder+Gravitas local cache | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources | encode/decode 100.000000%; 0 fidelity loss; 7,129.019s; 1,556.8191 sources/s | Gravitas local-cache receipt 16aadaefb8d139cd |
 
 ```text
 +--------------------------------+---------------------------------------------+
