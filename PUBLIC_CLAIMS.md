@@ -27,13 +27,13 @@ decoded answers to cross the service boundary.
 | Claim                         | Support                                                      |
 +-------------------------------+--------------------------------------------------------------+
 | Private text can stay local   | Request/manifest boundary and privacy scan                   |
-| Field signals are deterministic | Reference replay and QA-cache replay proof artifacts       |
+| Field signals are deterministic | Reference replay and QA-cache replay receipts              |
 | Decode is compatibility-gated | Focused fail-closed tests                                    |
 | Local ledger map-back exists  | Reference replay proof and smoke tests                       |
-| Legacy BN254 pairing fixture | BN254 fixture and tamper rejection artifact                   |
+| Legacy BN254 pairing fixture | BN254 fixture and tamper rejection receipt                    |
 | Groth16 zkSNARK circuit proof| Pinned reference circuit proof packet passes release gate      |
-| OpenEncoder.com is packaged   | Launcher package receipt and E2E proof artifacts             |
-| Binary hash attestation exists| GitHub artifact attestation workflow for OpenEncoder.com     |
+| OpenEncoder.com is packaged   | Launcher package receipt and E2E proof receipts              |
+| Binary hash attestation exists| GitHub binary attestation workflow for OpenEncoder.com       |
 +-------------------------------+--------------------------------------------------------------+
 ```
 
@@ -67,8 +67,8 @@ Do not publish filing PDFs, filing paths, application numbers, attorney correspo
 ## Benchmark Wording
 
 Use measured receipt-backed language for release claims. MSSQL/Gravitas is the
-authority for Ionizer+Gravitas fullbar rows; checked files are exported receipts
-and rendered views, not the data source. Keep benchmark surfaces named and
+authority for Ionizer+Gravitas fullbar rows. Checked files are exports and
+rendered views, not benchmark authority. Keep benchmark surfaces named and
 separated.
 
 ```text
@@ -96,12 +96,12 @@ separated.
 +--------------------------------+---------------------------------------------+
 ```
 
-The checked-in `mteb/msmarco-v2` proof is a streaming encode/decode parity
-proof over `285,328` query rows and `138,364,198` passage rows. The checked-in
-Hugging Face `microsoft/ms_marco` `v2.1` proof is a separate local
-encode/decode parity proof over the QA cache. Neither receipt is a semantic
-retrieval benchmark, ranking-quality benchmark, field-service quality claim, or
-official leaderboard result.
+The `mteb/msmarco-v2` receipt records streaming encode/decode parity over
+`285,328` query rows and `138,364,198` passage rows. The Hugging Face
+`microsoft/ms_marco` `v2.1` receipt records separate local encode/decode parity
+over the QA cache. Neither parity receipt is a semantic retrieval benchmark,
+ranking-quality benchmark, field-service quality claim, or leaderboard
+acceptance.
 
 Use projection language only when the value is clearly marked as a projection and kept outside the release evidence board.
 

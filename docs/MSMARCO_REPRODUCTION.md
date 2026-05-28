@@ -27,10 +27,10 @@ MS MARCO is published by Microsoft.
 +-----------------------------+----------------------------------------------+
 | microsoft/ms_marco v2.1     | QA-cache encode/decode parity                |
 | mteb/msmarco-v2             | retrieval-scale encode/decode parity         |
-| Retrieval ranking           | not claimed by these artifacts               |
-| Answer correctness          | not claimed by these artifacts               |
-| Field-service quality       | not claimed by these artifacts               |
-| Groth16 verification        | not claimed by these artifacts               |
+| Retrieval ranking           | out of scope for these parity receipts       |
+| Answer correctness          | out of scope for these parity receipts       |
+| Field-service quality       | out of scope for these parity receipts       |
+| Groth16 verification        | out of scope for these parity receipts       |
 +-----------------------------+----------------------------------------------+
 ```
 
@@ -73,12 +73,12 @@ python3 scripts/prove_msmarco_full_parity.py \
   --output docs/proofs/msmarco_full_parity_proof.json
 ```
 
-The command prints a short JSON summary and writes the QA-cache parity artifact
+The command prints a short JSON summary and writes the QA-cache parity receipt
 to `docs/proofs/msmarco_full_parity_proof.json`.
 The Gravitas submission summary for this local-cache surface is checked in at
 `docs/proofs/msmarco_full_parity_gravitas_submission.json`.
 
-Expected checked QA-cache artifact shape:
+Expected QA-cache receipt shape:
 
 ```text
 +-------------------------------+-----------------------------------------------+
@@ -100,7 +100,7 @@ Expected checked QA-cache artifact shape:
 ## Retrieval-Scale Parity Surface
 
 This repository also keeps a retrieval-scale parity handoff for
-`mteb/msmarco-v2`. This artifact covers the first `285,328` query rows and first
+`mteb/msmarco-v2`. This receipt covers the first `285,328` query rows and first
 `138,364,198` passage rows in deterministic streaming order.
 
 To reproduce the retrieval-scale parity proof locally:
@@ -122,11 +122,11 @@ python3 scripts/prove_msmarco_v2_real_parity.py \
 `--limit` remains a compatibility fallback when a single cap is intended for
 both streams.
 
-The resulting artifact is `docs/proofs/msmarco_v2_real_proof.json`. A public
+The resulting receipt export is `docs/proofs/msmarco_v2_real_proof.json`. A public
 handoff manifest is available at
 `docs/proofs/msmarco_v2_real_public_handoff.json`.
 
-Expected retrieval-scale artifact shape:
+Expected retrieval-scale receipt shape:
 
 ```text
 +--------------------------------+-----------------------------------------------+
@@ -150,7 +150,7 @@ Expected retrieval-scale artifact shape:
 +--------------------------------+-----------------------------------------------+
 ```
 
-The artifact intentionally avoids raw MS MARCO text and local absolute paths.
+The receipt intentionally avoids raw MS MARCO text and local absolute paths.
 
 Checked rebuild and handoff metadata:
 
@@ -172,7 +172,7 @@ Checked rebuild and handoff metadata:
 The runtime log hash is transport evidence from the rebuild host. The large log
 is intentionally not checked into this repository.
 
-## Compare Retrieval-Scale Artifacts
+## Compare Retrieval-Scale Receipts
 
 When comparing against another repository, use either positional arguments:
 
@@ -190,7 +190,7 @@ python3 scripts/compare_msmarco_v2_real.py \
   --right <other_repo>/docs/proofs/msmarco_v2_real_proof.json
 ```
 
-## Verify Checked Artifacts
+## Verify Receipt Exports
 
 ```bash
 python3 -m json.tool docs/proofs/msmarco_full_parity_proof.json >/dev/null
@@ -205,5 +205,5 @@ python3 scripts/compare_msmarco_v2_real.py \
 python3 -m pytest tests/test_client_field_encoder_smoke.py -q --tb=short
 ```
 
-If Hugging Face dataset packaging changes, regenerate the affected artifact and
-keep the README counts tied to the checked artifact.
+If Hugging Face dataset packaging changes, regenerate the affected receipt and
+keep the README counts tied to the receipt.

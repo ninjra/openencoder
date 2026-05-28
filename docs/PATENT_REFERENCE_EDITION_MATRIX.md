@@ -34,7 +34,7 @@ packet paths into this repository.
 | 03 | Opaque request payload               | Implemented                   | Add stronger payload audit    |
 | 04 | Local append-only ledger             | Implemented                   | Keep hash-chain verification  |
 | 05 | Local source-backed decode           | Implemented                   | Keep fail-closed behavior     |
-| 06 | Deterministic replay receipt         | Implemented                   | Keep artifact-backed          |
+| 06 | Deterministic replay receipt         | Implemented                   | Keep receipt-backed           |
 | 07 | Signed int16 field objects           | Implemented                   | Keep tested                   |
 | 08 | Typed atom extraction                | Implemented                   | Keep local/private            |
 | 09 | Field receipts                       | Implemented                   | Keep hash-bound               |

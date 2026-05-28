@@ -28,7 +28,7 @@
       "proof_value_matches": true
     }
   ],
-  "artifact_payload_sha256": "9466f5c4ce2a42731a099c3186f5ddf35bfb2bdc052c7ecb061268329c2cf971",
+  "artifact_payload_sha256": "f0ed24870d67bcb1afa075a13d4406503ab1228f5880f1418194871822a8ae62",
   "blocker_count": 0,
   "blockers": [],
   "claim_boundary": "OpenEncoder+Gravitas MS MARCO public wording must claim the checked stream encode/decode parity PASS and Gravitas submission receipt while keeping MSSQL/Gravitas authority separate from rendered files.",
@@ -39,6 +39,11 @@
     "c27f04ec3a70411f3ed5e91cc3dc29dc692296e9f0372f0399e706f016e55542",
     "ede2dd2fdd12b513c7352d25fc627e51799b9a8d1371771e69e71c0aa0e13350",
     "6ec1d8b2d8f52b2ecfa71eebd8bafac5ffefcbd3b8a2c79e4745cddb4c77f1c3",
+    "245ea1cc5d15ecef9dc8b6690cc58bf66e87aea3e6eb3e0afa3679f12de480c6",
+    "f328f10a30be26580c6d7d75a251a9971f52cf227ab6adedfd6ea92f6a30802f",
+    "a79331fcab798b923c186fe977e4599ef7246895a908a119255dfb8a9e1cb60b",
+    "40e077c397fb03ee5963c3e71a890a60c17435c995413b6e14d6ebc3166cbe0c",
+    "e1efcfefe5929f8ea0ad96e32d889c8cd6bfbf29b693aa10fdd45b74ffa05962",
     "9e19e45ca4f026ec5b641ad0b10291dd29b8a5e49f7711e16f0fdbdd17802a42",
     "106480b59cfb41fadeb73d529171b99bdc45708d5db92800b19ae487d406b14e",
     "aac224bffa89c1d8fcba3a65b5e90e5dcffebb45e7a0c96d1d9e8e21f12a384d",
@@ -49,18 +54,18 @@
   "public_claim_files": [
     {
       "path": "README.md",
-      "sha256": "c41745467d41b32522a878c63bdd84e250f4097774bc8d7371ec96297208f566",
-      "size_bytes": 19809
+      "sha256": "9fd236af1a316685237fc8e82e2bc1dc95d57428512ff46da27af413f95158a5",
+      "size_bytes": 19353
     },
     {
       "path": "PUBLIC_CLAIMS.md",
-      "sha256": "61ef7c1467069ab1e8ad7ad5d9ca3b1dbef3dd5979b574e8fce274ef18f9f2c3",
-      "size_bytes": 8634
+      "sha256": "c39ea04032e71233a0f8aa41d58a8eab5bb5339356c362db9cd51b7916d1df59",
+      "size_bytes": 8606
     },
     {
       "path": "RELEASE_ATTESTATION.md",
-      "sha256": "6153db07f8f37d8f8221360d5d16db6f87892af67a9f483419565c1268b4df94",
-      "size_bytes": 5744
+      "sha256": "2534a05752b741454f05817dd6c33adf599d533ae68a7ee2b4c466f53cc428c3",
+      "size_bytes": 5759
     },
     {
       "path": "CHANGELOG.md",
@@ -69,18 +74,18 @@
     },
     {
       "path": "docs/BENCHMARKS.md",
-      "sha256": "c00adc95801150df26908196ccba4ddc11a29a478ee0e4a2bce19ba947fe522d",
-      "size_bytes": 25414
+      "sha256": "c61a6d83f3a69e38991e57445a20fc3032b0a0d21dfd54c629016b9b2acbe8c5",
+      "size_bytes": 25522
     },
     {
       "path": "docs/MSMARCO_REPRODUCTION.md",
-      "sha256": "18f748b218ee00c3e7a242dbcce7c83ab5ef84b0c66541fbffde3535ab5e9215",
-      "size_bytes": 9987
+      "sha256": "eed9db8e1ea779f7300017e7d9601b866ff96969d38d0cba518b8753f613cab4",
+      "size_bytes": 9967
     },
     {
       "path": "docs/RELEASE_CHECKLIST.md",
-      "sha256": "7a6e3331fc7c95aedec50281992e0e4ae0ae8cb620e4fce01621e124b051a58e",
-      "size_bytes": 3601
+      "sha256": "3b2982fd52d7b6b9604339a633b5c8ba8a09e37bb0f378d6aa1eb72a422d0ea6",
+      "size_bytes": 3634
     }
   ],
   "required_claim_fragments": [
@@ -91,7 +96,6 @@
     "| MS MARCO stream      | OpenEncoder+Gravitas | PASS parity            | 285,328 q + 138,364,198 passages = 138,649,526 sources",
     "| MS MARCO local cache | OpenEncoder+Gravitas | PASS parity submission | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources",
     "MSSQL fullbar_world_metric_receipts; commit 5bb633581468eb66",
-    "| OpenEncoder+Gravitas | MS MARCO parity proof PASS; Gravitas submitted |",
     "mteb/msmarco-v2 stream parity| 138.6M srcs | PASS",
     "OpenEncoder+Gravitas MS MARCO  | parity proof PASS; Gravitas submission receipt",
     "OpenEncoder+Gravitas MS MARCO| PASS; stream parity proof + Gravitas receipt",

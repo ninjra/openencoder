@@ -53,7 +53,7 @@ Do not publish application numbers, private filing PDFs, OCR text, attorney corr
 Do not make the repository public until:
 
 1. all required gates pass in a fresh checkout,
-2. benchmark claims remain tied to checked artifacts and do not turn parity into retrieval quality,
+2. benchmark claims remain tied to MSSQL/Gravitas receipts or exported receipts and do not turn parity into retrieval quality,
 3. generated local folders such as `ledger/`, `outbox/`, `answers/`, `decoded/`, `.zig-cache/`, and `zig-out/` are absent from the commit,
 4. `docs/MSMARCO_REPRODUCTION.md` explains both the `mteb/msmarco-v2` stream parity proof and the Hugging Face QA-cache parity proof without conflating either with retrieval quality,
 5. `scripts/release_privacy_scan.py` passes from a fresh checkout,
@@ -61,5 +61,5 @@ Do not make the repository public until:
 7. the Groth16 verifier fixture passes with `py-ecc` installed and the tampered fixture fails closed,
 8. public CI is configured for push, pull request, focused tests, release privacy scan, Groth16 verification, and OpenEncoder.com endpoint validation,
 9. desktop click/open claims are backed by receipts from those operating systems before they appear in public copy,
-10. binary provenance is documented as hash attestation of a checked-in artifact (not reproducible source build), and
+10. binary provenance is documented as hash attestation of a checked-in binary receipt (not reproducible source build), and
 11. a high-entropy secret scanner (trufflehog, gitleaks, or equivalent) runs clean against the repository.

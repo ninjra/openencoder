@@ -10,12 +10,12 @@ files are exported receipts and rendered views, not the data source.
 ```text
 OPENENCODER BENCHMARK DASHBOARD
 Run ID:      openencoder-gravitas-public-dashboard
-Commit:      checked-in artifact
+Commit:      receipt export
 Dataset:     Legal-MLEB full aggregate + MS MARCO surface boundaries
 Generated:   2026-05-28
 
 +----+------------------------------+----------------+-------------+------------------------------------------------+
-| #  | Gate                         | Required       | Observed    | Artifact                                       |
+| #  | Gate                         | Required       | Observed    | Receipt export                                |
 +----+------------------------------+----------------+-------------+------------------------------------------------+
 | 01 | Encode determinism           | 100% replay    | PASS        | docs/proofs/reference_replay_proof.json        |
 | 02 | mteb/msmarco-v2 stream parity| 138.6M sources | PASS        | docs/proofs/msmarco_v2_real_proof.json         |
@@ -30,8 +30,8 @@ Generated:   2026-05-28
 | 11 | OpenEncoder.com endpoint     | binary hash    | PASS        | bin/OpenEncoder.com                            |
 +----+------------------------------+----------------+-------------+------------------------------------------------+
 
-OPENENCODER STANDALONE RETRIEVAL CLAIM: NOT CLAIMED
-ENCRYPTION PRODUCT: NOT CLAIMED
+OPENENCODER STANDALONE RETRIEVAL CLAIM: OUT OF SCOPE FOR PARITY RECEIPTS
+ENCRYPTION PRODUCT CLAIM: OUT OF SCOPE
 MS MARCO STREAM CLAIM: encode/decode parity over 285,328 queries + 138,364,198 passages.
 HF QA CACHE CLAIM: microsoft/ms_marco v2.1 train/validation/test parity only.
 ```
@@ -67,7 +67,7 @@ Qrels:     2,580
 | openencoder repo      | 2b7b095df621f4578ed5e521c9e206a11482dccf                         | reference_lane_before_doc_commit |
 | ionizer repo          | 2720b808162efa79fa6d5e20c8712526576c7d40                         | commercial_lane_current_checkout |
 | gravitas repo         | bbfa793413209335d68625b0025be1db10bd39b1                         | reporting_receipt_source         |
-| OpenEncoder.com       | 523ca8b008c45ef89c3a387efdb557e0ea6f3a8cfa39962f935075575c3183e2 | executable_artifact_sha256       |
+| OpenEncoder.com       | 523ca8b008c45ef89c3a387efdb557e0ea6f3a8cfa39962f935075575c3183e2 | executable_binary_sha256         |
 +-----------------------+------------------------------------------------------------------+----------------------------------+
 
 +--------------------------+--------------------------------------+--------------------------------------+
@@ -77,7 +77,7 @@ Qrels:     2,580
 | encoder                  | OpenEncoder                          | Ionizer                              |
 | engine                   | Gravitas                             | Gravitas                             |
 | role                     | public comparator lane               | commercial receipt-backed lane       |
-| official_leaderboard     | not claimed                          | not claimed                          |
+| official_leaderboard     | outside local receipt surface        | outside local receipt surface        |
 | ranker_policy            | reference_token_overlap_zig_v1        | Gravitas deterministic resolution    |
 | hotpath_language         | Zig                                  | Zig                                  |
 | python_hotpath           | false                                | false                                |
@@ -135,7 +135,7 @@ OpenEncoder.com SHA-256:
 
 ## Reference Hardware & Performance
 
-These workstation numbers are local reference points for scale and reproducibility. They are not guaranteed performance floors across machines. The checked-in proof artifacts remain the authoritative benchmark evidence. Private host names, local paths, service ports, PIDs, and unrelated LLM serving-stack details are intentionally omitted.
+These workstation numbers are local reference points for scale and reproducibility. They are not guaranteed performance floors across machines. MSSQL/Gravitas receipts are authoritative for Ionizer+Gravitas fullbar rows; exported files are rendered receipt views. Private host names, local paths, service ports, PIDs, and unrelated LLM serving-stack details are intentionally omitted.
 
 ```text
 REFERENCE WORKSTATION ENVIRONMENT
@@ -202,7 +202,7 @@ Surface: 285,328 queries + 138,364,198 passages
 | passage_count                 | 138,364,198               | PASS                      |
 | encoded_decoded_source_count  | 138,649,526               | PASS                      |
 | hf_qa_cache_equivalent        | false                     | false                     |
-| public_stream_artifact        | required                  | docs/proofs/msmarco_v2_real_proof.json |
+| public_stream_receipt         | required                  | docs/proofs/msmarco_v2_real_proof.json |
 | semantic_retrieval_claim      | false                     | false                     |
 | Status                        | REQUIRED                  | PASS, parity only         |
 +-------------------------------+---------------------------+---------------------------+
@@ -238,7 +238,7 @@ Proof hashes:
 | msmarco_v2_public_handoff_sha256     | a640232df9ae6400a54371be3aa41e9364c1365a2843a8f7c06722ea27cf9125 |
 | msmarco_full_parity_file_sha256      | fd4d778b065f62ae5b7f60e40bd0e705813b47684c0471a902940181bda73e1c |
 | gravitas_submission_file_sha256      | 92e8a052b5bb0c7fc1246c26c947af52796731c9d65d4344c7e7a0f37cf951b7 |
-| gravitas_reported_artifact_sha256    | 16aadaefb8d139cd32a2855c2c810c596f30afb1634aa2cc00b5e35dbc17a6aa |
+| gravitas_reported_receipt_sha256     | 16aadaefb8d139cd32a2855c2c810c596f30afb1634aa2cc00b5e35dbc17a6aa |
 +--------------------------------------+------------------------------------------------------------------+
 ```
 
@@ -305,13 +305,13 @@ OPENENCODER RUN SUMMARY
 +----------------------+------------------------------------------------------+
 ```
 
-## Artifact Contract
+## Receipt Export Contract
 
-Each benchmark update should include checked-in machine-readable artifacts under `docs/proofs/` or another declared evidence directory:
+Each benchmark update should include machine-readable receipt exports under `docs/proofs/` or another declared evidence directory:
 
 ```text
 +------------------------------------------+--------------------------------------------------------------+
-| Artifact                                 | Required Contents                                            |
+| Receipt export                           | Required Contents                                            |
 +------------------------------------------+--------------------------------------------------------------+
 | reference_replay_proof.json              | encode/change/decode deterministic replay receipt            |
 | msmarco_replay_proof.json                | HF QA cache replay; not retrieval-quality authority          |
@@ -327,11 +327,11 @@ Each benchmark update should include checked-in machine-readable artifacts under
 +------------------------------------------+--------------------------------------------------------------+
 ```
 
-Do not add a metric unless the artifact or named test exists and can be reproduced by the documented command.
+Do not add a metric unless the MSSQL/Gravitas receipt, exported receipt, or named test exists and can be reproduced by the documented command.
 
 ## MS MARCO v2 Surface Boundary
 
-Only checked artifacts are reportable. The `mteb/msmarco-v2` stream artifact
+Only receipt-backed rows are reportable. The `mteb/msmarco-v2` stream receipt
 is reportable as encode/decode parity over the declared stream counts. The
 Hugging Face QA cache remains reportable only as a named local-cache
 encode/decode parity surface.
@@ -345,8 +345,8 @@ encode/decode parity surface.
 | stream_passage_count       | 138,364,198                                  |
 | stream_encoded_sources     | 138,649,526                                  |
 | openencoder_gravitas_claim | PASS, encode/decode parity only              |
-| semantic_retrieval_claim   | NOT CLAIMED                                  |
-| ionizer_gravitas_baseline  | receipt-backed baseline exists              |
+| semantic_retrieval_claim   | OUT OF SCOPE for parity receipts             |
+| ionizer_gravitas_fullbar   | PASS, MSSQL fullbar_world_metric_receipts    |
 | hf_qa_cache_role           | parity only, separate named surface          |
 +----------------------------+----------------------------------------------+
 ```
@@ -360,4 +360,4 @@ encode/decode parity surface.
 ./bin/OpenEncoder.com requirements
 ```
 
-The current endpoint receipt is the checked-in `bin/OpenEncoder.com` artifact and the Legal-MLEB comparator receipt above.
+The current endpoint receipt is the checked-in `bin/OpenEncoder.com` binary receipt and the Legal-MLEB comparator receipt above.

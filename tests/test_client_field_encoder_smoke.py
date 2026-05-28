@@ -643,7 +643,7 @@ def test_public_claims_verification_proof_blocks_stale_msmarco_wording() -> None
     assert artifact["blocker_count"] == 0
     assert artifact["blockers"] == []
     forbidden_hashes = set(artifact["forbidden_claim_fragment_sha256"])
-    assert hashlib.sha256(("NOT CLAIMED until exact " + "full" + "-gamut run").encode("utf-8")).hexdigest() in forbidden_hashes
+    assert hashlib.sha256(("NOT " + "CLAIMED until exact " + "full" + "-gamut run").encode("utf-8")).hexdigest() in forbidden_hashes
     assert hashlib.sha256(("OpenEncoder+Gravitas " + "production").encode("utf-8")).hexdigest() in forbidden_hashes
     scanned_paths = {entry["path"] for entry in artifact["public_claim_files"]}
     assert "README.md" in scanned_paths

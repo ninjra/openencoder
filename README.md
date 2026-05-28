@@ -22,7 +22,7 @@ boundary; the service contract only requires the emitted field envelope.
 | Field envelope | deterministic signed int16 reference lane |
 | Decode | local ledger/source-backed excerpt recovery |
 | Security posture | reference kit, not encryption |
-| Binary provenance | hash-attested artifact, not reproducible build |
+| Binary provenance | hash-attested binary receipt, not reproducible build |
 | Groth16 zkSNARK | pinned circuit proof packet passes release gate |
 
 ## OpenEncoder+Gravitas / Ionizer+Gravitas Benchmark Matrix
@@ -63,20 +63,10 @@ encoder. A compatible field service receives field tensors plus necessary
 auth/submission metadata; source text, local ledgers, client secrets, and
 decoded answer reports remain local.
 
-| Surface | Boundary |
-|---|---|
-| mteb/msmarco-v2 full stream | 285,328 queries + 138,364,198 passages |
-| Ionizer+Gravitas | receipt-backed Legal-MLEB baseline exists |
-| OpenEncoder+Gravitas | MS MARCO parity proof PASS; Gravitas submitted |
-| HF ms_marco v2.1 QA cache | local-cache parity proof PASS, separate surface |
-
-This comparator belongs to the wider OpenEncoder/Ionizer/Gravitas ecosystem.
-It is a local comparator run. MSSQL/Gravitas receipts are the authority for the
-Ionizer+Gravitas fullbar rows; checked files are exported receipts and rendered
-views, not the data source. The OpenEncoder MS MARCO claim is encode/decode
-parity, not semantic ranking quality or an official leaderboard acceptance.
-Full evidence:
-`docs/BENCHMARKS.md`.
+MSSQL/Gravitas receipts are the authority for Ionizer+Gravitas fullbar rows.
+OpenEncoder+Gravitas MS MARCO rows are parity receipts, not semantic ranking
+claims. The metric table above is the public benchmark surface; detailed
+receipt hashes and reproduction commands are in `docs/BENCHMARKS.md`.
 
 ## How It Works
 
@@ -101,7 +91,7 @@ Full evidence:
 | Local ledger map-back                | A cipher suite                       |
 | Opaque numeric payload generator     | Secret-free answer recovery          |
 | Encode/decode parity proof surface   | Standalone retrieval production engine |
-| Zig endpoint smoke/check artifact    | Reproducible source-built binary     |
+| Zig endpoint smoke/check receipt     | Reproducible source-built binary     |
 | Legacy BN254 pairing fixture         | Blanket privacy proof                |
 | Pinned Groth16 circuit proof         | General-purpose SNARK system         |
 | Reference kit                        | Security product                     |
@@ -113,7 +103,7 @@ Full evidence:
 OpenEncoder includes a bounded Groth16 zkSNARK proof surface for its pinned
 reference circuit. That claim is tied to the passing release gate, circuit
 manifest, proof packet, verification key, and tamper/substitution rejection
-artifacts.
+receipts.
 
 This is separate from the request-egress boundary. The no-raw-source-text claim
 is inspected from the outbound envelope and local ledger behavior; the Groth16
@@ -290,7 +280,7 @@ openencoder/
     PATENT_REFERENCE.md            # patent citation checklist
     OPENENCODER_PORTABLE_ENDPOINT.md # endpoint documentation
     RELEASE_CHECKLIST.md
-    proofs/                        # replay and Groth16 verification artifacts
+    proofs/                        # exported replay and Groth16 receipts
 ```
 
 ## Field-Service Integration Checklist
@@ -322,14 +312,14 @@ python3 client_field_encoder.py requirements
 
 ```text
 +--------------------------+------------------------------------------------------------------+
-| Artifact                 | SHA-256                                                          |
+| Receipt                  | SHA-256                                                          |
 +--------------------------+------------------------------------------------------------------+
 | msmarco_v2_real_payload  | d15c702867e001b7020e65e55b5d23b3844c03638203f45bc3237154b3ddd202 |
 | msmarco_v2_real_file     | 38782428a27e12e2ef3da5ccd137f90d8e270546e68bec1a87a520633dc24932 |
 | msmarco_v2_public_handoff| a640232df9ae6400a54371be3aa41e9364c1365a2843a8f7c06722ea27cf9125 |
 | msmarco_v2_runtime_log   | 656107eaa6180824b0018c2fdfa8623d07013e770a10e748bdddbb4cfb34ff45 |
 | gravitas_submission_file | 92e8a052b5bb0c7fc1246c26c947af52796731c9d65d4344c7e7a0f37cf951b7 |
-| gravitas_reported_artifact | 16aadaefb8d139cd32a2855c2c810c596f30afb1634aa2cc00b5e35dbc17a6aa |
+| gravitas_reported_receipt | 16aadaefb8d139cd32a2855c2c810c596f30afb1634aa2cc00b5e35dbc17a6aa |
 | msmarco_full_parity      | fd4d778b065f62ae5b7f60e40bd0e705813b47684c0471a902940181bda73e1c |
 | source_chain_sha256      | c493488583133dbaf89a56dd119cb5d237a74e36d1a8721e430f8713fde48bd2 |
 | decode_chain_sha256      | a64c858d59b4b8239f6a45da5d695b3b2850261dc6d78922dc1a93d0267266cc |

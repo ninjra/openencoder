@@ -1,7 +1,7 @@
 # OpenEncoder v1.0.0 Release Attestation
 
 This file records the public release gate for OpenEncoder v1.0.0. Current state:
-local release gates pass for the checked-in reference artifact and real Groth16 circuit proof packet. Reproducible source-build provenance remains out of scope.
+local release gates pass for the checked-in reference receipt and real Groth16 circuit proof packet. Reproducible source-build provenance remains out of scope.
 
 ## Release Identity
 
@@ -56,8 +56,8 @@ OpenEncoder v1.0.0 claims:
 4. source-backed local answer recovery,
 5. legacy BN254 pairing fixture verification,
 6. a pinned real Groth16 reference circuit proof packet,
-7. checked-in replay, QA-cache parity, and `mteb/msmarco-v2` stream parity proof artifacts, and
-8. a single-file OpenEncoder Zig endpoint artifact for release smoke checks.
+7. exported replay, QA-cache parity, and `mteb/msmarco-v2` stream parity receipts, and
+8. a single-file OpenEncoder Zig endpoint receipt for release smoke checks.
 
 OpenEncoder v1.0.0 does not claim:
 
@@ -70,11 +70,11 @@ OpenEncoder v1.0.0 does not claim:
 
 ## Binary Provenance
 
-The public repository includes `.github/workflows/release-attestation.yml`, which verifies the `bin/OpenEncoder.com` SHA-256 and emits a GitHub artifact attestation for the release binary. This is hash attestation of a checked-in artifact: it confirms the binary you download matches the binary the maintainer committed. It is not reproducible source build provenance, meaning the binary cannot currently be rebuilt byte-for-byte from the repository source alone. Reproducible builds from auditable source are a future goal, not a current claim. This is also not a substitute for Microsoft Authenticode, Apple notarization, or any private certificate-backed OS vendor signature. Those require maintainer-controlled signing credentials and must be added only when those credentials exist.
+The public repository includes `.github/workflows/release-attestation.yml`, which verifies the `bin/OpenEncoder.com` SHA-256 and emits a GitHub binary attestation for the release binary. This is hash attestation of a checked-in binary receipt: it confirms the binary you download matches the binary the maintainer committed. It is not reproducible source build provenance, meaning the binary cannot currently be rebuilt byte-for-byte from the repository source alone. Reproducible builds from auditable source are a future goal, not a current claim. This is also not a substitute for Microsoft Authenticode, Apple notarization, or any private certificate-backed OS vendor signature. Those require maintainer-controlled signing credentials and must be added only when those credentials exist.
 
 ## Reproducibility Rule
 
-Public claims must stay tied to checked-in proof artifacts or commands documented in `README.md`, `docs/BENCHMARKS.md`, `docs/MSMARCO_REPRODUCTION.md`, and `docs/RELEASE_CHECKLIST.md`.
+Public claims must stay tied to MSSQL/Gravitas receipts, exported receipt files, or commands documented in `README.md`, `docs/BENCHMARKS.md`, `docs/MSMARCO_REPRODUCTION.md`, and `docs/RELEASE_CHECKLIST.md`.
 
 Do not replace measured values with projections. Projections belong outside the release evidence board unless they are explicitly labeled as projections.
 
