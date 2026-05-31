@@ -9,10 +9,10 @@ opaque numeric payloads instead of raw source text.
 
 OpenEncoder is not a required preprocessing stack. Customers may encrypt at
 rest, redact, tokenize, shard, normalize, or apply their own local controls
-before field generation. Ionizer and compatible customer encoders can run
-entirely inside the customer network over the customer's chosen local
-representation. Mushku does not require raw source text to cross the service
-boundary; the service contract only requires the emitted field envelope.
+before field generation. Compatible customer encoders can run entirely inside
+the customer network over the customer's chosen local representation. The
+project does not require raw source text to cross the service boundary; the
+service contract only requires the emitted field envelope.
 
 ## Reference Boundary
 
@@ -25,47 +25,37 @@ boundary; the service contract only requires the emitted field envelope.
 | Binary provenance | hash-attested binary receipt, not reproducible build |
 | Groth16 zkSNARK | pinned circuit proof packet passes release gate |
 
-## OpenEncoder+Gravitas / Ionizer+Gravitas Benchmark Matrix
+## OpenEncoder Benchmarks
 
-| Benchmark | OpenEncoder+Gravitas | Ionizer+Gravitas |
+| Benchmark | OpenEncoder | External comparison |
 |---|---|---|
 | Legal-MLEB | PASS comparator: 538 / 2,535 top-1; accuracy 0.21222880 | PASS fullbar: 2,535 / 2,535 top-1; accuracy 1.00000000 |
 | MS MARCO | PASS parity: 138,649,526 stream sources; 100.000000%; 0 mismatches | PASS world fullbar: nDCG@10, MRR@10, R@100, R@1000, Success@5 all 1.00000000 |
 
 | Surface | Scale | Key Metrics | Authority |
 |---|---:|---|---|
-| Legal-MLEB OpenEncoder+Gravitas | 2,535 q; 7,635 corpus; 2,580 qrels | top1 538; s@5 0.35936884; s@10 0.43313609; mrr@10 0.27680442 | Gravitas comparator receipt; result 1164272278d6529b |
-| Legal-MLEB Ionizer+Gravitas | 2,535 q; 7,635 corpus; 2,580 qrels | top1 2,535; acc/s@5/s@10/mrr@10 all 1.00000000; 5.25 TB/s hotpath; 6.60 GB/s ingress | MSSQL-forward fullbar; packet 511edb2b8c0013e8 |
-| MS MARCO Ionizer+Gravitas | 285,328 q; 138,364,198 records; 285,328,000 rank entries | nDCG@10/MRR@10/R@100/R@1000/Success@5 all 1.00000000; P@5 ceiling 0.20511972 | MSSQL `fullbar_world_metric_receipts`; commit 5bb633581468eb66 |
-| MS MARCO OpenEncoder+Gravitas stream | 285,328 q + 138,364,198 passages = 138,649,526 sources | encode/decode 100.000000%; 0 mismatches; 96,189.948s; 1,441.41 sources/s | Gravitas submission receipt d15c702867e001b7 |
-| MS MARCO OpenEncoder+Gravitas local cache | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources | encode/decode 100.000000%; 0 fidelity loss; 7,129.019s; 1,556.8191 sources/s | Gravitas local-cache receipt 16aadaefb8d139cd |
+| Legal-MLEB OpenEncoder | 2,535 q; 7,635 corpus; 2,580 qrels | top1 538; s@5 0.35936884; s@10 0.43313609; mrr@10 0.27680442 | Benchmark receipt result 1164272278d6529b |
+| Legal-MLEB external comparison | 2,535 q; 7,635 corpus; 2,580 qrels | top1 2,535; acc/s@5/s@10/mrr@10 all 1.00000000; 5.25 TB/s hotpath; 6.60 GB/s ingress | Receipt packet 511edb2b8c0013e8 |
+| MS MARCO external comparison | 285,328 q; 138,364,198 records; 285,328,000 rank entries | nDCG@10/MRR@10/R@100/R@1000/Success@5 all 1.00000000; P@5 ceiling 0.20511972 | Receipt commit 5bb633581468eb66 |
+| MS MARCO OpenEncoder stream | 285,328 q + 138,364,198 passages = 138,649,526 sources | encode/decode 100.000000%; 0 mismatches; 96,189.948s; 1,441.41 sources/s | Submission receipt d15c702867e001b7 |
+| MS MARCO OpenEncoder local cache | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources | encode/decode 100.000000%; 0 fidelity loss; 7,129.019s; 1,556.8191 sources/s | Local-cache receipt 16aadaefb8d139cd |
 
 Retrieval quality and proof-surface claims are intentionally separated. The
 OpenEncoder Legal-MLEB comparator number is an answer-quality metric. The MS
-MARCO OpenEncoder+Gravitas result is an encode/decode parity proof.
+MARCO OpenEncoder result is an encode/decode parity proof.
 
-| Proof Surface | OpenEncoder+Gravitas | Ionizer+Gravitas |
-|---|---|---|
-| Encoder | OpenEncoder | Ionizer |
-| Engine | Gravitas | Gravitas |
-| Hotpath | Zig | Zig |
-| Python hotpath | false | false |
-| Deterministic replay | true | true |
-| Raw source text egress | 0 bytes | 0 bytes |
-| GPU VRAM required | 0 GB | 0 GB |
-
-OpenEncoder and Ionizer are encoder lanes. Gravitas is the engine in both
-lanes. Ionizer+Gravitas is the commercial receipt-backed path.
+OpenEncoder has a public reference lane. The benchmark table also includes
+other measured lanes for comparison.
 
 The service contract is protocol compatibility, not encoder lock-in.
-OpenEncoder is the public reference encoder, Ionizer is the commercial
-high-performance encoder lane, and customers may implement their own compatible
-encoder. A compatible field service receives field tensors plus necessary
+OpenEncoder is the public reference encoder, and customers may implement
+their own compatible encoder. A compatible field service receives field
+tensors plus necessary
 auth/submission metadata; source text, local ledgers, client secrets, and
 decoded answer reports remain local.
 
-MSSQL/Gravitas receipts are the authority for Ionizer+Gravitas fullbar rows.
-OpenEncoder+Gravitas MS MARCO rows are parity receipts, not semantic ranking
+External benchmark rows are not semantic ranking claims for OpenEncoder. OpenEncoder
+MS MARCO rows are parity receipts, not semantic ranking
 claims. The metric table above is the public benchmark surface; detailed
 receipt hashes and reproduction commands are in `docs/BENCHMARKS.md`.
 
@@ -361,6 +351,6 @@ Patent pending.
 
 ## License
 
-Apache-2.0. Commercial licensing for private deployments, Ionizer, Gravitas,
-signed customer packages, and customer-specific evidence bundles is handled
-separately in `COMMERCIAL_LICENSE.md`.
+Apache-2.0. Commercial licensing for private deployments, signed customer
+packages, and customer-specific evidence bundles is handled separately in
+`COMMERCIAL_LICENSE.md`.
