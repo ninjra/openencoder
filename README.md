@@ -2,8 +2,8 @@ Copyright 2026 Shri Narayan Justin Ram / Mushku Nobleworks. All Rights Reserved.
 
 # OpenEncoder
 
-OpenEncoder is a publishable reference encoder kit for the Gravitas field
-envelope. It turns local text into deterministic signed `int16` field signals,
+OpenEncoder is a reference encoder kit for opaque-field workflows.
+It turns local text into deterministic signed `int16` field signals,
 keeps the source ledger local, and lets a compatible field service operate on
 opaque numeric payloads instead of raw source text.
 
