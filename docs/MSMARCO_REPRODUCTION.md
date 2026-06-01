@@ -75,7 +75,7 @@ python3 scripts/prove_msmarco_full_parity.py \
 
 The command prints a short JSON summary and writes the QA-cache parity receipt
 to `docs/proofs/msmarco_full_parity_proof.json`.
-The Gravitas submission summary for this local-cache surface is checked in at
+The external-submission summary for this local-cache surface is checked in at
 `docs/proofs/msmarco_full_parity_gravitas_submission.json`.
 
 Expected QA-cache receipt shape:

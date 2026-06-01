@@ -74,7 +74,7 @@ The public repository includes `.github/workflows/release-attestation.yml`, whic
 
 ## Reproducibility Rule
 
-Public claims must stay tied to MSSQL/Gravitas receipts, exported receipt files, or commands documented in `README.md`, `docs/BENCHMARKS.md`, `docs/MSMARCO_REPRODUCTION.md`, and `docs/RELEASE_CHECKLIST.md`.
+Public claims must stay tied to benchmark export receipts, exported receipt files, or commands documented in `README.md`, `docs/BENCHMARKS.md`, `docs/MSMARCO_REPRODUCTION.md`, and `docs/RELEASE_CHECKLIST.md`.
 
 Do not replace measured values with projections. Projections belong outside the release evidence board unless they are explicitly labeled as projections.
 
@@ -84,7 +84,7 @@ Do not replace measured values with projections. Projections belong outside the 
 +------------------------------+---------------------------------------------+
 | Surface                      | Release Claim                               |
 +------------------------------+---------------------------------------------+
-| OpenEncoder+Gravitas MS MARCO| PASS; stream parity proof + Gravitas receipt |
+| OpenEncoder MS MARCO| PASS; stream parity proof + benchmark receipt |
 | Stream scale                 | 285,328 queries + 138,364,198 passages      |
 | MS MARCO semantic retrieval  | OUT OF SCOPE; no ranking metric             |
 | HF microsoft/ms_marco v2.1   | local-cache parity proof PASS               |

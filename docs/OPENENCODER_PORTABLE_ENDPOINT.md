@@ -13,7 +13,7 @@ On Linux/WSL, run it directly as `./bin/OpenEncoder.com`.
 | score-jsonl         | deterministic comparator scoring path                |
 | requirements        | machine-readable protocol requirements               |
 | self-check          | endpoint smoke check                                 |
-| proof receipt       | Legal-MLEB comparator receipt from Gravitas validation vault |
+| proof receipt       | Legal-MLEB comparator receipt from benchmark validation vault |
 +---------------------+------------------------------------------------------+
 ```
 

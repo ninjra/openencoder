@@ -53,7 +53,7 @@ Do not publish application numbers, private filing PDFs, OCR text, attorney corr
 Do not make the repository public until:
 
 1. all required gates pass in a fresh checkout,
-2. benchmark claims remain tied to MSSQL/Gravitas receipts or exported receipts and do not turn parity into retrieval quality,
+2. benchmark claims remain tied to benchmark receipt exports or exported receipts and do not turn parity into retrieval quality,
 3. generated local folders such as `ledger/`, `outbox/`, `answers/`, `decoded/`, `.zig-cache/`, and `zig-out/` are absent from the commit,
 4. `docs/MSMARCO_REPRODUCTION.md` explains both the `mteb/msmarco-v2` stream parity proof and the Hugging Face QA-cache parity proof without conflating either with retrieval quality,
 5. `scripts/release_privacy_scan.py` passes from a fresh checkout,

@@ -1,15 +1,15 @@
 # OpenEncoder Benchmarks
 
-OpenEncoder and Ionizer are encoder lanes. Gravitas is the engine in both
-lanes. This file reports MSSQL/Gravitas receipt-backed surfaces and keeps MS
-MARCO encode/decode parity separate from semantic retrieval quality. Checked
-files are exported receipts and rendered views, not the data source.
+This file reports the OpenEncoder reference benchmark lane and one external
+comparison lane. It keeps MS MARCO encode/decode parity separate from semantic
+retrieval quality. Checked files are exported receipts and rendered views, not
+the data source.
 
 ## Current Dashboard
 
 ```text
 OPENENCODER BENCHMARK DASHBOARD
-Run ID:      openencoder-gravitas-public-dashboard
+Run ID:      openencoder-benchmark-public-dashboard
 Commit:      receipt export
 Dataset:     Legal-MLEB full aggregate + MS MARCO surface boundaries
 Generated:   2026-05-28
@@ -38,21 +38,21 @@ HF QA CACHE CLAIM: microsoft/ms_marco v2.1 train/validation/test parity only.
 
 ## Legal-MLEB Ecosystem Comparator
 
-This compares encoder lanes feeding the same Gravitas engine. It is a local
+This compares benchmark lanes fed by the same evaluator harness. It is a local
 receipt-backed comparator surface, not an accepted official leaderboard result.
 
-| Benchmark | OpenEncoder+Gravitas | Ionizer+Gravitas |
+| Benchmark | OpenEncoder | External comparison |
 |---|---|---|
 | Legal-MLEB | PASS comparator: 538 / 2,535 top-1; accuracy 0.21222880 | PASS fullbar: 2,535 / 2,535 top-1; accuracy 1.00000000 |
 | MS MARCO | PASS parity: 138,649,526 stream sources; 100.000000%; 0 mismatches | PASS world fullbar: nDCG@10, MRR@10, R@100, R@1000, Success@5 all 1.00000000 |
 
 | Surface | Scale | Key Metrics | Authority |
 |---|---:|---|---|
-| Legal-MLEB OpenEncoder+Gravitas | 2,535 q; 7,635 corpus; 2,580 qrels | top1 538; s@5 0.35936884; s@10 0.43313609; mrr@10 0.27680442 | Gravitas comparator receipt; result 1164272278d6529b |
-| Legal-MLEB Ionizer+Gravitas | 2,535 q; 7,635 corpus; 2,580 qrels | top1 2,535; acc/s@5/s@10/mrr@10 all 1.00000000; 5.25 TB/s hotpath; 6.60 GB/s ingress | MSSQL-forward fullbar; packet 511edb2b8c0013e8 |
-| MS MARCO Ionizer+Gravitas | 285,328 q; 138,364,198 records; 285,328,000 rank entries | nDCG@10/MRR@10/R@100/R@1000/Success@5 all 1.00000000; P@5 ceiling 0.20511972 | MSSQL `fullbar_world_metric_receipts`; commit 5bb633581468eb66 |
-| MS MARCO OpenEncoder+Gravitas stream | 285,328 q + 138,364,198 passages = 138,649,526 sources | encode/decode 100.000000%; 0 mismatches; 96,189.948s; 1,441.41 sources/s | Gravitas submission receipt d15c702867e001b7 |
-| MS MARCO OpenEncoder+Gravitas local cache | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources | encode/decode 100.000000%; 0 fidelity loss; 7,129.019s; 1,556.8191 sources/s | Gravitas local-cache receipt 16aadaefb8d139cd |
+| Legal-MLEB OpenEncoder | 2,535 q; 7,635 corpus; 2,580 qrels | top1 538; s@5 0.35936884; s@10 0.43313609; mrr@10 0.27680442 | Benchmark receipt result 1164272278d6529b |
+| Legal-MLEB External comparison | 2,535 q; 7,635 corpus; 2,580 qrels | top1 2,535; acc/s@5/s@10/mrr@10 all 1.00000000; 5.25 TB/s hotpath; 6.60 GB/s ingress | Receipt packet 511edb2b8c0013e8 |
+| MS MARCO External comparison | 285,328 q; 138,364,198 records; 285,328,000 rank entries | nDCG@10/MRR@10/R@100/R@1000/Success@5 all 1.00000000; P@5 ceiling 0.20511972 | Receipt commit 5bb633581468eb66 |
+| MS MARCO OpenEncoder stream | 285,328 q + 138,364,198 passages = 138,649,526 sources | encode/decode 100.000000%; 0 mismatches; 96,189.948s; 1,441.41 sources/s | Submission receipt d15c702867e001b7 |
+| MS MARCO OpenEncoder local cache | 1,010,916 q + 10,087,677 corpus = 11,098,593 sources | encode/decode 100.000000%; 0 fidelity loss; 7,129.019s; 1,556.8191 sources/s | Local-cache receipt 16aadaefb8d139cd |
 
 ```text
 LEGAL-MLEB 2025 ECOSYSTEM COMPARATOR
@@ -66,20 +66,19 @@ Qrels:     2,580
 | Source Anchor         | Hash                                                             | Scope                            |
 +-----------------------+------------------------------------------------------------------+----------------------------------+
 | openencoder repo      | 2b7b095df621f4578ed5e521c9e206a11482dccf                         | reference_lane_before_doc_commit |
-| ionizer repo          | 2720b808162efa79fa6d5e20c8712526576c7d40                         | commercial_lane_current_checkout |
-| gravitas repo         | bbfa793413209335d68625b0025be1db10bd39b1                         | reporting_receipt_source         |
+| external lane repo    | 2720b808162efa79fa6d5e20c8712526576c7d40                         | comparison_lane_current_checkout |
+| reporting surface repo| bbfa793413209335d68625b0025be1db10bd39b1                         | reporting_receipt_source         |
 | OpenEncoder.com       | 523ca8b008c45ef89c3a387efdb557e0ea6f3a8cfa39962f935075575c3183e2 | executable_binary_sha256         |
 +-----------------------+------------------------------------------------------------------+----------------------------------+
 
 +--------------------------+--------------------------------------+--------------------------------------+
-| Metric                   | OpenEncoder+Gravitas                 | Ionizer+Gravitas                     |
+| Metric                   | OpenEncoder                          | External comparison                  |
 +--------------------------+--------------------------------------+--------------------------------------+
 | execution_path           | openencoder-api-core-api-openencoder | ionizer-api-core-api-ionizer         |
 | encoder                  | OpenEncoder                          | Ionizer                              |
-| engine                   | Gravitas                             | Gravitas                             |
-| role                     | public comparator lane               | commercial receipt-backed lane       |
+| lane_type                | public comparator lane               | external comparison lane             |
 | official_leaderboard     | outside local receipt surface        | outside local receipt surface        |
-| ranker_policy            | reference_token_overlap_zig_v1        | Gravitas deterministic resolution    |
+| ranker_policy            | reference_token_overlap_zig_v1        | external deterministic resolution    |
 | hotpath_language         | Zig                                  | Zig                                  |
 | python_hotpath           | false                                | false                                |
 | production_claimed       | false                                | true                                 |
@@ -103,9 +102,8 @@ Qrels:     2,580
 +--------------------------+--------------------------------------+--------------------------------------+
 
 Interpretation:
-OpenEncoder and Ionizer are encoder lanes. Gravitas is the engine in both.
-OpenEncoder+Gravitas is a comparator lane. Ionizer+Gravitas is the commercial
-receipt-backed lane.
+OpenEncoder is the reference comparator lane and the external row is the
+comparison lane. Both rows are receipt-bound proof surfaces.
 
 OpenEncoder deterministic result hash:
 1164272278d6529bba3ba03e6d31aa1c6571d1122dd2f118a4db9942a7a8bbe7
@@ -123,11 +121,11 @@ OpenEncoder.com SHA-256:
 +----------------------------------+---------------------------------------------+
 | Claim                            | Status                                      |
 +----------------------------------+---------------------------------------------+
-| OpenEncoder+Gravitas comparator  | PASS                                        |
+| OpenEncoder comparator  | PASS                                        |
 | OpenEncoder zero-egress lane     | PASS                                        |
-| OpenEncoder+Gravitas MS MARCO stream parity | PASS                              |
+| OpenEncoder MS MARCO stream parity | PASS                              |
 | MS MARCO semantic retrieval benchmark | OUT OF SCOPE; no ranking metric       |
-| Ionizer+Gravitas MLEB receipt    | PASS, 1.00000000                            |
+| External MLEB receipt            | PASS, 1.00000000                            |
 | Python deterministic authority   | false                                       |
 | GPU / accelerator requirement    | 0 GB                                        |
 | Official external leaderboard    | OUT OF SCOPE until maintainer acceptance    |
@@ -136,7 +134,7 @@ OpenEncoder.com SHA-256:
 
 ## Reference Hardware & Performance
 
-These workstation numbers are local reference points for scale and reproducibility. They are not guaranteed performance floors across machines. MSSQL/Gravitas receipts are authoritative for Ionizer+Gravitas fullbar rows; exported files are rendered receipt views. Private host names, local paths, service ports, PIDs, and unrelated LLM serving-stack details are intentionally omitted.
+These workstation numbers are local reference points for scale and reproducibility. They are not guaranteed performance floors across machines. External comparison rows are backed by corresponding receipt packets; exported files are rendered receipt views. Private host names, local paths, service ports, PIDs, and unrelated LLM serving-stack details are intentionally omitted.
 
 ```text
 REFERENCE WORKSTATION ENVIRONMENT
@@ -317,7 +315,7 @@ Each benchmark update should include machine-readable receipt exports under `doc
 | reference_replay_proof.json              | encode/change/decode deterministic replay receipt            |
 | msmarco_replay_proof.json                | HF QA cache replay; not retrieval-quality authority          |
 | msmarco_full_parity_proof.json           | HF QA cache parity; not retrieval-quality authority          |
-| msmarco_full_parity_gravitas_submission.json | Gravitas submission summary for local-cache parity       |
+| msmarco_full_parity_gravitas_submission.json | External submission summary for local-cache parity       |
 | msmarco_v2_real_proof.json               | mteb/msmarco-v2 stream parity proof                         |
 | msmarco_v2_real_public_handoff.json      | reproducibility and transport hashes for stream proof       |
 | public_claims_verification_proof.json    | stale-claim rejection proof for public wording              |
@@ -328,7 +326,7 @@ Each benchmark update should include machine-readable receipt exports under `doc
 +------------------------------------------+--------------------------------------------------------------+
 ```
 
-Do not add a metric unless the MSSQL/Gravitas receipt, exported receipt, or named test exists and can be reproduced by the documented command.
+Do not add a metric unless the external comparison receipt, exported receipt, or named test exists and can be reproduced by the documented command.
 
 ## MS MARCO v2 Surface Boundary
 
@@ -345,9 +343,9 @@ encode/decode parity surface.
 | stream_query_count         | 285,328                                      |
 | stream_passage_count       | 138,364,198                                  |
 | stream_encoded_sources     | 138,649,526                                  |
-| openencoder_gravitas_claim | PASS, encode/decode parity only              |
+| openencoder_benchmark_claim | PASS, encode/decode parity only              |
 | semantic_retrieval_claim   | OUT OF SCOPE for parity receipts             |
-| ionizer_gravitas_fullbar   | PASS, MSSQL fullbar_world_metric_receipts    |
+| external_fullbar_row        | PASS, external fullbar_world_metric_receipts    |
 | hf_qa_cache_role           | parity only, separate named surface          |
 +----------------------------+----------------------------------------------+
 ```
