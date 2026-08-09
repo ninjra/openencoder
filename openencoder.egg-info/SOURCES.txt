@@ -1,0 +1,13 @@
+LICENSE
+LICENSE-COMMERCIAL.md
+README.md
+client_field_encoder.py
+openencoder_groth16.py
+pyproject.toml
+openencoder.egg-info/PKG-INFO
+openencoder.egg-info/SOURCES.txt
+openencoder.egg-info/dependency_links.txt
+openencoder.egg-info/requires.txt
+openencoder.egg-info/top_level.txt
+tests/test_client_field_encoder_smoke.py
+tests/test_msmarco_retrieval_benchmark.py

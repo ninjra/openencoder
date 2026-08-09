@@ -4,7 +4,7 @@ version = "1.0.0"
 description = "Standalone client-side field encoder and local answer decoder"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "Apache-2.0" }
+license = { text = "Apache-2.0 OR Commercial" }
 dependencies = ["py-ecc>=8.0.0,<9"]
 
 [tool.setuptools]
