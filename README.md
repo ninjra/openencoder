@@ -1,5 +1,4 @@
 Copyright 2026 Shri Narayan Justin Ram / Mushku Nobleworks. All Rights Reserved.
-
 # OpenEncoder
 
 **Private, zero-egress document search and local answer recovery.**
