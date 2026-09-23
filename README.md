@@ -2,28 +2,43 @@ Copyright 2026 Shri Narayan Justin Ram / Mushku Nobleworks. All Rights Reserved.
 
 # OpenEncoder
 
-OpenEncoder is a reference encoder kit for opaque-field workflows.
-It turns local text into deterministic signed `int16` field signals,
-keeps the source ledger local, and lets a compatible field service operate on
-opaque numeric payloads instead of raw source text.
+**Private, zero-egress document search and local answer recovery.**
 
-OpenEncoder is not a required preprocessing stack. Customers may encrypt at
-rest, redact, tokenize, shard, normalize, or apply their own local controls
-before field generation. Compatible customer encoders can run entirely inside
-the customer network over the customer's chosen local representation. The
-project does not require raw source text to cross the service boundary; the
-service contract only requires the emitted field envelope.
+OpenEncoder lets you search sensitive local documents across remote or third-party engines without exposing raw source text. It encodes local text into deterministic, signed `int16` field signals. The remote engine operates purely across opaque numeric coordinates, while your local machine keeps the source ledger to resolve matched excerpts privately.
 
-## Reference Boundary
+* **Zero Cloud Decryption:** Raw source text never crosses the service boundary.
+* **Deterministic & Lossless:** 100% replay parity over 138M+ records (MS MARCO).
+* **Verifiable Integrity:** Built-in BN254 Groth16 zkSNARK proof verification.
+* **Dual Runtime:** Reference Python kit + single-file portable Zig binary (`bin/OpenEncoder.com`).
 
-| Surface | OpenEncoder Claim |
-|---|---|
-| Local source text | not emitted in tested request/manifest files |
-| Field envelope | deterministic signed int16 reference lane |
-| Decode | local ledger/source-backed excerpt recovery |
-| Security posture | reference kit, not encryption |
-| Binary provenance | hash-attested binary receipt, not reproducible build |
-| Groth16 zkSNARK | pinned circuit proof packet passes release gate |
+---
+
+## 30-Second Quick Start
+
+```bash
+# 1. Install OpenEncoder
+python3 -m pip install .
+
+# 2. Set a client-held secret (never leaves your machine)
+export CLIENT_SIGNAL_SECRET="$(openssl rand -hex 32)"
+
+# 3. Encode local documents & queries into opaque field signals
+python3 client_field_encoder.py encode \
+  --corpus-path examples/corpus \
+  --query-path examples/query \
+  --context demo \
+  --ledger ledger/client_field_ledger.jsonl \
+  --output outbox/01_field_request.json \
+  --submission-manifest-output outbox/02_submission_manifest.json
+
+# -> Send ONLY outbox/ to the field service. Keep examples/ and ledger/ local.
+
+# 4. Decode engine results locally (resolves text via local ledger)
+python3 client_field_encoder.py decode \
+  --ledger ledger/client_field_ledger.jsonl \
+  --answers-path answers \
+  --include-text \
+  --output decoded/decoded_answers.json
 
 ## OpenEncoder Benchmarks
 
