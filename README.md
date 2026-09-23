@@ -16,9 +16,10 @@ OpenEncoder lets you search sensitive local documents across remote or third-par
 ## 30-Second Quick Start
 
 ```bash
-# 1. Install OpenEncoder
-
-python3 -m pip install "git+https://github.com/ninjra/openencoder.git"
+# 1. Clone and install OpenEncoder
+git clone https://github.com/ninjra/openencoder.git
+cd openencoder
+python3 -m pip install .
 
 # 2. Set a client-held secret (never leaves your machine)
 export CLIENT_SIGNAL_SECRET="$(openssl rand -hex 32)"
